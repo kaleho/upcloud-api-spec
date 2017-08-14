@@ -256,6 +256,38 @@
           }
         }
       }
+    },
+    "/storage": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "List of storages",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storages": {
+                  "type": "object",
+                  "properties": {
+                    "storage": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Storage"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -281,6 +313,120 @@
             "IPv6"
           ],
           "example": "IPv4"
+        }
+      }
+    },
+    "BackupRule": {
+      "type": "object",
+      "properties": {
+        "interval": {
+          "type": "string",
+          "enum": [
+            "daily",
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "example": "daily"
+        },
+        "time": {
+          "example": "0430"
+        },
+        "retention": {
+          "type": "number",
+          "example": 365
+        }
+      }
+    },
+    "Storage": {
+      "type": "object",
+      "properties": {
+        "access": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ],
+          "example": "private"
+        },
+        "backup_rule": {
+          "$ref": "#/definitions/BackupRule"
+        },
+        "backups": {
+          "type": "object",
+          "properties": {
+            "backup": {
+              "type": "array"
+            }
+          }
+        },
+        "license": {
+          "type": "number",
+          "example": 0
+        },
+        "servers": {
+          "type": "object",
+          "properties": {
+            "server": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "example": "00798b85-efdc-41ca-8021-f6ef457b8531"
+              }
+            }
+          }
+        },
+        "size": {
+          "type": "number",
+          "example": 10
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "online",
+            "maintenance",
+            "cloning",
+            "backuping",
+            "error"
+          ],
+          "example": "online"
+        },
+        "tier": {
+          "type": "string",
+          "enum": [
+            "hdd",
+            "maxiops"
+          ],
+          "example": "maxiops"
+        },
+        "title": {
+          "type": "string",
+          "example": "Operating system disk"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "disk",
+            "cdrom",
+            "template",
+            "backup"
+          ],
+          "example": "normal"
+        },
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "01d4fcd4-e446-433b-8a9c-551a1284952e"
+        },
+        "zone": {
+          "type": "string",
+          "example": "fi-hel1"
         }
       }
     },
