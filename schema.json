@@ -5,7 +5,7 @@
     "description": "Upcloud api specification",
     "version": "1.0.0"
   },
-  "basePath": "/v1",
+  "basePath": "/1.2",
   "tags": [
     {
       "name": "Server"
@@ -14,5 +14,322 @@
       "name": "Storage"
     }
   ],
-  "paths": {}
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/server": {
+      "get": {
+        "tags": [
+          "Server"
+        ],
+        "summary": "List of servers",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "servers": {
+                  "type": "object",
+                  "properties": {
+                    "server": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Server"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Ip address": {
+      "type": "object",
+      "properties": {
+        "access": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ],
+          "example": "private"
+        },
+        "address": {
+          "type": "string",
+          "example": "10.0.0.00"
+        },
+        "family": {
+          "type": "string",
+          "enum": [
+            "IPv4",
+            "IPv6"
+          ],
+          "example": "IPv4"
+        }
+      }
+    },
+    "Storage device": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "example": "virtio:0"
+        },
+        "part_of_plan": {
+          "type": "string",
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "example": "yes"
+        },
+        "storage": {
+          "type": "string",
+          "example": "012580a1-32a1-466e-a323-689ca16f2d43"
+        },
+        "storage_size": {
+          "type": "number",
+          "example": 20
+        },
+        "storage_title": {
+          "type": "string",
+          "example": "Storage for server1.example.com"
+        },
+        "type": {
+          "type": "string",
+          "example": "disk"
+        }
+      }
+    },
+    "Server": {
+      "type": "object",
+      "properties": {
+        "boot_order": {
+          "type": "string",
+          "enum": [
+            "disk",
+            "cdrom",
+            "disk,cdrom",
+            "cdrom,disk"
+          ],
+          "example": "disk"
+        },
+        "core_number": {
+          "type": "number",
+          "example": 0
+        },
+        "firewall": {
+          "type": "string",
+          "enum": [
+            "on",
+            "off"
+          ],
+          "example": "on"
+        },
+        "host": {
+          "type": "number",
+          "example": 7653311107
+        },
+        "hostname": {
+          "type": "string",
+          "example": "server1.example.com"
+        },
+        "ip_addresses": {
+          "type": "object",
+          "properties": {
+            "ip_address": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Ip address"
+              }
+            }
+          }
+        },
+        "license": {
+          "type": "number",
+          "example": 0
+        },
+        "memory_amount": {
+          "type": "number",
+          "example": 1024
+        },
+        "nic_model": {
+          "type": "string",
+          "example": "virtio"
+        },
+        "plan": {
+          "type": "string",
+          "example": "1xCPU-1GB"
+        },
+        "plan_ipv4_bytes": {
+          "type": "number",
+          "example": 3565675343
+        },
+        "plan_ipv6_bytes": {
+          "type": "number",
+          "example": 4534432
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "started",
+            "stopped",
+            "maintenance",
+            "error"
+          ],
+          "example": "started"
+        },
+        "storage_devices": {
+          "type": "object",
+          "properties": {
+            "storage_device": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Storage device"
+              }
+            }
+          }
+        },
+        "tags": {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                "DEV",
+                "Ubuntu"
+              ]
+            }
+          }
+        },
+        "timezone": {
+          "type": "string",
+          "example": "UTC"
+        },
+        "title": {
+          "type": "string",
+          "example": "server1.example.com"
+        },
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "0077fa3d-32db-4b09-9f5f-30d9e9afb565"
+        },
+        "video_model": {
+          "type": "string",
+          "example": "cirrus",
+          "enum": [
+            "vga",
+            "cirrus"
+          ]
+        },
+        "vnc": {
+          "type": "string",
+          "enum": [
+            "on",
+            "off"
+          ],
+          "example": "on"
+        },
+        "vnc_host": {
+          "type": "string",
+          "example": "fi-he1l.vnc.upcloud.com"
+        },
+        "vnc_password": {
+          "type": "string",
+          "example": "aabbccdd"
+        },
+        "vnc_port": {
+          "type": "string",
+          "example": "00000"
+        },
+        "zone": {
+          "type": "string",
+          "example": "fi-hel1"
+        }
+      }
+    },
+    "ErrorStatus": {
+      "type": "number",
+      "enum": [
+        400,
+        402,
+        403,
+        404,
+        409
+      ]
+    },
+    "ErrorCode": {
+      "type": "string",
+      "enum": [
+        "ACTION_INVALID",
+        "ACTION_MISSING",
+        "BOOT_ORDER_INVALID",
+        "CORE_MEMORY_UNSUPPORTED",
+        "FIREWALL_INVALID",
+        "CORE_NUMBER_INVALID",
+        "HOSTNAME_INVALID",
+        "HOSTNAME_MISSING",
+        "MEMORY_AMOUNT_INVALID",
+        "NIC_MODEL_INVALID",
+        "PASSWORD_DELIVERY_INVALID",
+        "SERVER_TITLE_INVALID",
+        "SERVER_TITLE_MISSING",
+        "SIZE_INVALID",
+        "SIZE_MISSING",
+        "STORAGE_DEVICE_INVALID",
+        "STORAGE_DEVICE_MISSING",
+        "STORAGE_DEVICES_INVALID",
+        "STORAGE_DEVICES_MISSING",
+        "STORAGE_INVALID",
+        "STORAGE_MISSING",
+        "STORAGE_TITLE_INVALID",
+        "STORAGE_TITLE_MISSING",
+        "TIMEZONE_INVALID",
+        "TYPE_INVALID",
+        "TIER_INVALID",
+        "VIDEO_MODEL_INVALID",
+        "VNC_INVALID",
+        "VNC_PASSWORD_INVALID",
+        "ZONE_INVALID",
+        "ZONE_MISSING",
+        "USER_DATA_INVALID",
+        "INSUFFICIENT_CREDITS",
+        "STORAGE_FORBIDDEN",
+        "PLAN_CORE_NUMBER_ILLEGAL",
+        "PLAN_MEMORY_AMOUNT_ILLEGAL",
+        "TRIAL_PLAN",
+        "STORAGE_NOT_FOUND",
+        "ZONE_NOT_FOUND",
+        "CDROM_DEVICE_IN_USE",
+        "DEVICE_ADDRESS_IN_USE",
+        "IP_ADDRESS_RESOURCES_UNAVAILABLE",
+        "MULTIPLE_TEMPLATES",
+        "PUBLIC_STORAGE_ATTACH",
+        "SERVER_RESOURCES_UNAVAILABLE",
+        "STORAGE_ATTACHED_AS_CDROM",
+        "STORAGE_ATTACHED_AS_DISK",
+        "STORAGE_DEVICE_LIMIT_REACHED",
+        "STORAGE_IN_USE",
+        "STORAGE_RESOURCES_UNAVAILABLE",
+        "STORAGE_STATE_ILLEGAL",
+        "STORAGE_TYPE_ILLEGAL",
+        "ZONE_MISMATCH",
+        "INVALID_USERNAME"
+      ]
+    }
+  }
 }
