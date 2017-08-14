@@ -30,7 +30,7 @@
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
+            "description": "Successful operation",
             "schema": {
               "type": "object",
               "properties": {
@@ -44,6 +44,36 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/server/{serverUuid}": {
+      "get": {
+        "tags": [
+          "Server"
+        ],
+        "parameters": [
+          {
+            "name": "Server id",
+            "in": "path",
+            "description": "Id of server to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
                 }
               }
             }
