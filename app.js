@@ -1,11 +1,12 @@
 const Koa = require('koa')
 const koaSwagger = require('koa2-swagger-ui')
+const spec = require('./schema.json')
 
 const app = new Koa()
 const swagger = koaSwagger({
   routePrefix: '/',
   swaggerOptions: {
-    url: 'http://petstore.swagger.io/v2/swagger.json',
+    spec,
   },
 })
 

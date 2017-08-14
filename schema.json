@@ -1,0 +1,18 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Upcloud api",
+    "description": "Upcloud api specification",
+    "version": "1.0.0"
+  },
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "Server"
+    },
+    {
+      "name": "Storage"
+    }
+  ],
+  "paths": {}
+}
