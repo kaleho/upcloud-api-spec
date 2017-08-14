@@ -1,0 +1,16 @@
+{
+  "name": "upcloud-api-spec",
+  "version": "1.0.0",
+  "description": "Upcloud API specification",
+  "main": "index.js",
+  "repository": "git@github.com:UpCloudLtd/upcloud-api-spec.git",
+  "author": "upcloud",
+  "scripts": {
+    "swagger-ui": "http-server ./node_modules/swagger-ui-dist"
+  },
+  "dependencies": {
+    "http-server": "^0.10.0",
+    "swagger-ui": "^3.1.5",
+    "swagger-ui-dist": "^3.1.5"
+  }
+}
