@@ -49,9 +49,67 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Server"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Server",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Server"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful create",
+            "schema": {
+              "$ref": "#/definitions/Server"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
       }
     },
-    "/server/{serverUuid}": {
+    "/server/{serverId}": {
       "get": {
         "tags": [
           "Server"
@@ -360,6 +418,22 @@
         "ZONE_MISMATCH",
         "INVALID_USERNAME"
       ]
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "$ref": "#/definitions/ErrorCode"
+            },
+            "status": {
+              "$ref": "#/definitions/ErrorStatus"
+            }
+          }
+        }
+      }
     }
   }
 }
