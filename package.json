@@ -6,11 +6,18 @@
   "repository": "git@github.com:UpCloudLtd/upcloud-api-spec.git",
   "author": "upcloud",
   "scripts": {
-    "swagger-ui": "http-server ./node_modules/swagger-ui-dist"
+    "swagger-ui": "http-server ./node_modules/swagger-ui-dist",
+    "start": "node app",
+    "dev": "nodemon app"
   },
   "dependencies": {
     "http-server": "^0.10.0",
+    "koa": "^2.3.0",
+    "koa2-swagger-ui": "^2.5.6",
     "swagger-ui": "^3.1.5",
     "swagger-ui-dist": "^3.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
