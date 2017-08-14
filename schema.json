@@ -51,6 +51,7 @@
         }
       },
       "post": {
+        "summary": "Create server",
         "tags": [
           "Server"
         ],
@@ -73,7 +74,12 @@
           "200": {
             "description": "Successful create",
             "schema": {
-              "$ref": "#/definitions/Server"
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
             }
           },
           "400": {
@@ -111,6 +117,7 @@
     },
     "/server/{serverId}": {
       "get": {
+        "summary": "Server details",
         "tags": [
           "Server"
         ],
@@ -134,6 +141,72 @@
                   "$ref": "#/definitions/Server"
                 }
               }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Modify server",
+        "tags": [
+          "Server"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Server id",
+            "in": "path",
+            "description": "Id of server to modify",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "Server",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Server"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           }
         }
