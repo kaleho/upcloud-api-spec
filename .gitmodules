@@ -1,3 +1,18 @@
 [submodule "swagger-codegen"]
 	path = swagger-codegen
 	url = git@github.com:swagger-api/swagger-codegen.git
+[submodule "sdk/ruby"]
+	path = sdk/ruby
+	url = git@github.com:UpCloudLtd/upcloud-ruby-api.git
+[submodule "sdk/php"]
+	path = sdk/php
+	url = git@github.com:UpCloudLtd/upcloud-php-api.git
+[submodule "sdk/java"]
+	path = sdk/java
+	url = git@github.com:UpCloudLtd/upcloud-java-api.git
+[submodule "sdk/csharp"]
+	path = sdk/csharp
+	url = git@github.com:UpCloudLtd/upcloud-c-sharp-api.git
+[submodule "sdk/javascript"]
+	path = sdk/javascript
+	url = git@github.com:UpCloudLtd/upcloud-javascript-api.git
