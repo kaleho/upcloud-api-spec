@@ -25,3 +25,10 @@ or
 ```
 $ npm start
 ```
+
+## Init swagger codegen
+Do after clone project
+```
+$ git submodule init
+$ git submodule update
+```
