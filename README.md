@@ -31,4 +31,6 @@ Do after clone project
 ```
 $ git submodule init
 $ git submodule update
+$ cd swagger-codegen
+$ mvn clean package
 ```
