@@ -25,6 +25,8 @@
           "Server"
         ],
         "summary": "List of servers",
+        "description": "List servers",
+        "operationId": "list servers",
         "produces": [
           "application/json"
         ],
@@ -52,6 +54,7 @@
       },
       "post": {
         "summary": "Create server",
+        "operationId": "create server",
         "tags": [
           "Server"
         ],
@@ -118,6 +121,7 @@
     "/server/{serverId}": {
       "get": {
         "summary": "Server details",
+        "operationId": "server details",
         "tags": [
           "Server"
         ],
@@ -147,6 +151,7 @@
       },
       "put": {
         "summary": "Modify server",
+        "operationId": "update server",
         "tags": [
           "Server"
         ],
@@ -213,6 +218,7 @@
       },
       "delete": {
         "summary": "Delete server",
+        "operationId": "delete server",
         "tags": [
           "Server"
         ],
@@ -263,6 +269,7 @@
           "Storage"
         ],
         "summary": "List of storages",
+        "operationId": "list storages",
         "produces": [
           "application/json"
         ],
