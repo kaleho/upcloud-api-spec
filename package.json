@@ -10,12 +10,12 @@
     "start": "node app",
     "dev": "nodemon app",
     "validate": "curl -X POST -d @schema.json -H 'Content-Type:application/json' http://online.swagger.io/validator/debug",
-    "generate-sdk:js": "java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i schema.json -l javascript -o sdk/javascript",
-    "generate-sdk:csharp": "java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i schema.json -l csharp -o sdk/csharp",
-    "generate-sdk:java": "java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i schema.json -l java -o sdk/java",
-    "generate-sdk:php": "java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i schema.json -l php -o sdk/php",
-    "generate-sdk:ruby": "java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i schema.json -l ruby -o sdk/ruby",
-    "generate-sdk": "yarn generate-sdk:js && yarn generate-sdk:csharp && yarn generate-sdk:java && yarn generate-sdk:php && yarn generate-sdk:ruby"
+    "generate-sdk:js": "./bin/generate-sdk.sh -l javascript",
+    "generate-sdk:csharp": "./bin/generate-sdk.sh -l csharp",
+    "generate-sdk:java": "./bin/generate-sdk.sh -l java",
+    "generate-sdk:php": "./bin/generate-sdk.sh -l php",
+    "generate-sdk:ruby": "./bin/generate-sdk.sh -l ruby",
+    "generate-sdk": "./bin/generate-sdk.sh"
   },
   "dependencies": {
     "http-server": "^0.10.0",
