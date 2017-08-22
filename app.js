@@ -12,4 +12,6 @@ const swagger = koaSwagger({
 
 app.use(swagger)
 const port = process.env.PORT || 3000
+
+console.log(`Server started at port: ${port}`)
 app.listen(port)
