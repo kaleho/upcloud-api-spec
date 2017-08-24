@@ -20,6 +20,10 @@
       "description": "A zone identifies the physical site where the cloud services are located. Different zones may be used to provide geographical and logical separation of servers."
     },
     {
+      "name": "Timezone",
+      "description": "A cloud server's hardware clock is set to a specific timezone. Some operating systems, such as Microsoft Windows, rely on the hardware clock being in local time. Others, such as Linux, use a default setting of a hardware clock in Coordinated Universal Time (UTC). The server's timezone setting can be adjusted to a local time if required by the operating system."
+    },
+    {
       "name": "Server"
     },
     {
@@ -104,6 +108,39 @@
                       "items": {
                         "type": "object",
                         "$ref": "#/definitions/Zone"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/timezone": {
+      "get": {
+        "tags": [
+          "Timezone"
+        ],
+        "summary": "List timezones",
+        "description": "Returns a list of available timezones. Timezones are used to set the hardware clock for servers.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfull operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "timezones": {
+                  "type": "object",
+                  "properties": {
+                    "timezone": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Timezone"
                       }
                     }
                   }
@@ -512,6 +549,10 @@
           "example": "Frankfurt #1"
         }
       }
+    },
+    "Timezone": {
+      "type": "string",
+      "example": "Africa/Abidjan"
     },
     "Ip address": {
       "type": "object",
