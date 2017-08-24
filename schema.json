@@ -16,6 +16,10 @@
       "description": "UpCloud resources are billed by the hour according to the price list. We also offer pricing plans for fixed server configurations."
     },
     {
+      "name": "Zone",
+      "description": "A zone identifies the physical site where the cloud services are located. Different zones may be used to provide geographical and logical separation of servers."
+    },
+    {
       "name": "Server"
     },
     {
@@ -66,6 +70,40 @@
                       "items": {
                         "type": "object",
                         "$ref": "#/definitions/PriceZone"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/zone": {
+      "get": {
+        "tags": [
+          "Zone"
+        ],
+        "summary": "List available zones",
+        "description": "Returns a list of available zones.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "zones": {
+                  "type": "object",
+                  "properties": {
+                    "zone": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "$ref": "#/definitions/Zone"
                       }
                     }
                   }
@@ -459,6 +497,19 @@
         "server_plan_2xCPU-2GB": {
           "type": "object",
           "$ref": "#/definitions/Price"
+        }
+      }
+    },
+    "Zone": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "de-fra1"
+        },
+        "description": {
+          "type": "string",
+          "example": "Frankfurt #1"
         }
       }
     },
