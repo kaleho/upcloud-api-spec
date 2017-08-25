@@ -24,6 +24,10 @@
       "description": "A cloud server's hardware clock is set to a specific timezone. Some operating systems, such as Microsoft Windows, rely on the hardware clock being in local time. Others, such as Linux, use a default setting of a hardware clock in Coordinated Universal Time (UTC). The server's timezone setting can be adjusted to a local time if required by the operating system."
     },
     {
+      "name": "Plan",
+      "description": "Server plans are preconfigured server configurations with fixed price. Each plan includes certain number of CPU cores, memory amount, storage and transfer quota in addition of one public IPv4 address (private IPv4 addresses and public IPv6 addresses are currently free of charge, so they are not included in plan)."
+    },
+    {
       "name": "Server"
     },
     {
@@ -141,6 +145,39 @@
                       "type": "array",
                       "items": {
                         "$ref": "#/definitions/Timezone"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plan": {
+      "get": {
+        "tags": [
+          "Plan"
+        ],
+        "summary": "List available plans",
+        "description": "Returns a list of available plans.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "plans": {
+                  "type": "object",
+                  "properties": {
+                    "plan": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Plan"
                       }
                     }
                   }
@@ -553,6 +590,35 @@
     "Timezone": {
       "type": "string",
       "example": "Africa/Abidjan"
+    },
+    "Plan": {
+      "type": "object",
+      "properties": {
+        "core_number": {
+          "type": "number",
+          "example": 1
+        },
+        "memory_amount": {
+          "type": "number",
+          "example": 1024
+        },
+        "name": {
+          "type": "string",
+          "example": "1xCPU-1GB"
+        },
+        "public_traffic_out": {
+          "type": "string",
+          "example": 2048
+        },
+        "storage_size": {
+          "type": "string",
+          "example": 30
+        },
+        "storage_tier": {
+          "type": "string",
+          "example": "maxiops"
+        }
+      }
     },
     "Ip address": {
       "type": "object",
