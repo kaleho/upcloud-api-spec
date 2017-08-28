@@ -28,7 +28,8 @@
       "description": "Server plans are preconfigured server configurations with fixed price. Each plan includes certain number of CPU cores, memory amount, storage and transfer quota in addition of one public IPv4 address (private IPv4 addresses and public IPv6 addresses are currently free of charge, so they are not included in plan)."
     },
     {
-      "name": "Server"
+      "name": "Server",
+      "description": "The server configuration defines which storage devices the server is attached to, which IP addresses can be used and how the server can be reached for remote management. A server must have at least one storage device attached in order to be started. Servers may have from zero to five public IPv4 and IPv6 addresses. All servers have a private IP address that cannot be removed."
     },
     {
       "name": "Storage"
@@ -178,6 +179,39 @@
                       "type": "array",
                       "items": {
                         "$ref": "#/definitions/Plan"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/server_size": {
+      "get": {
+        "tags": [
+          "Server"
+        ],
+        "summary": "List server configurations",
+        "description": "Returns a list of available server configurations. A server configuration consists of a combination of CPU core count and main memory amount. All servers are created using these configurations.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server_sizes": {
+                  "type": "object",
+                  "properties": {
+                    "server_size": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/ServerSize"
                       }
                     }
                   }
@@ -620,6 +654,174 @@
         }
       }
     },
+    "ServerState": {
+      "type": "string",
+      "description": "The server state indicates the server's current status.",
+      "enum": [
+        "started",
+        "stopped",
+        "maintenance",
+        "error"
+      ],
+      "example": "started"
+    },
+    "ServerSize": {
+      "type": "object",
+      "properties": {
+        "core_number": {
+          "type": "number",
+          "example": "1"
+        },
+        "memory_amount": {
+          "type": "number",
+          "example": "512"
+        }
+      }
+    },
+    "Server": {
+      "type": "object",
+      "properties": {
+        "boot_order": {
+          "type": "string",
+          "enum": [
+            "disk",
+            "cdrom",
+            "disk,cdrom",
+            "cdrom,disk"
+          ],
+          "example": "disk"
+        },
+        "core_number": {
+          "type": "number",
+          "example": 0
+        },
+        "firewall": {
+          "type": "string",
+          "enum": [
+            "on",
+            "off"
+          ],
+          "example": "on"
+        },
+        "host": {
+          "type": "number",
+          "example": 7653311107
+        },
+        "hostname": {
+          "type": "string",
+          "example": "server1.example.com"
+        },
+        "ip_addresses": {
+          "type": "object",
+          "properties": {
+            "ip_address": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Ip address"
+              }
+            }
+          }
+        },
+        "license": {
+          "type": "number",
+          "example": 0
+        },
+        "memory_amount": {
+          "type": "number",
+          "example": 1024
+        },
+        "nic_model": {
+          "type": "string",
+          "example": "virtio"
+        },
+        "plan": {
+          "type": "string",
+          "example": "1xCPU-1GB"
+        },
+        "plan_ipv4_bytes": {
+          "type": "number",
+          "example": 3565675343
+        },
+        "plan_ipv6_bytes": {
+          "type": "number",
+          "example": 4534432
+        },
+        "state": {
+          "$ref": "#/definitions/ServerState"
+        },
+        "storage_devices": {
+          "type": "object",
+          "properties": {
+            "storage_device": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Storage device"
+              }
+            }
+          }
+        },
+        "tags": {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                "DEV",
+                "Ubuntu"
+              ]
+            }
+          }
+        },
+        "timezone": {
+          "type": "string",
+          "example": "UTC"
+        },
+        "title": {
+          "type": "string",
+          "example": "server1.example.com"
+        },
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "0077fa3d-32db-4b09-9f5f-30d9e9afb565"
+        },
+        "video_model": {
+          "type": "string",
+          "example": "cirrus",
+          "enum": [
+            "vga",
+            "cirrus"
+          ]
+        },
+        "vnc": {
+          "type": "string",
+          "enum": [
+            "on",
+            "off"
+          ],
+          "example": "on"
+        },
+        "vnc_host": {
+          "type": "string",
+          "example": "fi-he1l.vnc.upcloud.com"
+        },
+        "vnc_password": {
+          "type": "string",
+          "example": "aabbccdd"
+        },
+        "vnc_port": {
+          "type": "string",
+          "example": "00000"
+        },
+        "zone": {
+          "type": "string",
+          "example": "fi-hel1"
+        }
+      }
+    },
     "Ip address": {
       "type": "object",
       "properties": {
@@ -792,157 +994,6 @@
         "type": {
           "type": "string",
           "example": "disk"
-        }
-      }
-    },
-    "Server": {
-      "type": "object",
-      "properties": {
-        "boot_order": {
-          "type": "string",
-          "enum": [
-            "disk",
-            "cdrom",
-            "disk,cdrom",
-            "cdrom,disk"
-          ],
-          "example": "disk"
-        },
-        "core_number": {
-          "type": "number",
-          "example": 0
-        },
-        "firewall": {
-          "type": "string",
-          "enum": [
-            "on",
-            "off"
-          ],
-          "example": "on"
-        },
-        "host": {
-          "type": "number",
-          "example": 7653311107
-        },
-        "hostname": {
-          "type": "string",
-          "example": "server1.example.com"
-        },
-        "ip_addresses": {
-          "type": "object",
-          "properties": {
-            "ip_address": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Ip address"
-              }
-            }
-          }
-        },
-        "license": {
-          "type": "number",
-          "example": 0
-        },
-        "memory_amount": {
-          "type": "number",
-          "example": 1024
-        },
-        "nic_model": {
-          "type": "string",
-          "example": "virtio"
-        },
-        "plan": {
-          "type": "string",
-          "example": "1xCPU-1GB"
-        },
-        "plan_ipv4_bytes": {
-          "type": "number",
-          "example": 3565675343
-        },
-        "plan_ipv6_bytes": {
-          "type": "number",
-          "example": 4534432
-        },
-        "state": {
-          "type": "string",
-          "enum": [
-            "started",
-            "stopped",
-            "maintenance",
-            "error"
-          ],
-          "example": "started"
-        },
-        "storage_devices": {
-          "type": "object",
-          "properties": {
-            "storage_device": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Storage device"
-              }
-            }
-          }
-        },
-        "tags": {
-          "type": "object",
-          "properties": {
-            "tag": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "example": [
-                "DEV",
-                "Ubuntu"
-              ]
-            }
-          }
-        },
-        "timezone": {
-          "type": "string",
-          "example": "UTC"
-        },
-        "title": {
-          "type": "string",
-          "example": "server1.example.com"
-        },
-        "uuid": {
-          "type": "string",
-          "format": "uuid",
-          "example": "0077fa3d-32db-4b09-9f5f-30d9e9afb565"
-        },
-        "video_model": {
-          "type": "string",
-          "example": "cirrus",
-          "enum": [
-            "vga",
-            "cirrus"
-          ]
-        },
-        "vnc": {
-          "type": "string",
-          "enum": [
-            "on",
-            "off"
-          ],
-          "example": "on"
-        },
-        "vnc_host": {
-          "type": "string",
-          "example": "fi-he1l.vnc.upcloud.com"
-        },
-        "vnc_password": {
-          "type": "string",
-          "example": "aabbccdd"
-        },
-        "vnc_port": {
-          "type": "string",
-          "example": "00000"
-        },
-        "zone": {
-          "type": "string",
-          "example": "fi-hel1"
         }
       }
     },
