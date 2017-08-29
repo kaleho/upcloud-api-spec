@@ -32,7 +32,8 @@
       "description": "The server configuration defines which storage devices the server is attached to, which IP addresses can be used and how the server can be reached for remote management. A server must have at least one storage device attached in order to be started. Servers may have from zero to five public IPv4 and IPv6 addresses. All servers have a private IP address that cannot be removed."
     },
     {
-      "name": "Storage"
+      "name": "Storage",
+      "description": "A storage device is a block device similar to a physical hard disk. It can be used to install an operating system or hold some other filesystem for a server."
     }
   ],
   "schemes": [
@@ -1152,16 +1153,52 @@
         }
       }
     },
+    "StorageType": {
+      "type": "string",
+      "enum": [
+        "disk",
+        "cdrom",
+        "template",
+        "backup"
+      ],
+      "example": "normal",
+      "description": "There are four different storage types:\n* `disk` (*Normal storages*) - Normal storage resources are used to store operating system and application data. This is the only user writeable storage type.\n* `cdrom` (*CD-ROMs*) - CD-ROM resources are used as a read-only media, typically for server installations or crash recovery.\n* `template` (*Templates*) - Templates are special storage resources which are used to create new servers with a preconfigured operating system.\n* `backup` (*Backups*) - Backups are storages containing a point-in-time backup of a normal storage. Data on a normal storage can be restored from one of its backups. Backups can also be cloned to create a new normal storage resource. Backups can be created manually or automatically using backup rules."
+    },
+    "StorageTier": {
+      "type": "string",
+      "enum": [
+        "hdd",
+        "maxiops"
+      ],
+      "example": "maxiops",
+      "description": "Storage resources are divided into two tiers:\n* `hdd` (*HDD storages*) - Data is stored on hard disks resulting in lower costs than MaxIOPS.\n* `maxiops` (*MaxIOPS storages*) - Data is stored on MaxIOPS storage arrays resulting in highest throughput and lowest response times.\n\nStorage tiers affect both the performance and price of the storage."
+    },
+    "StorageAccessType": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private"
+      ],
+      "example": "private",
+      "description": "Storage access types.\n* `public` (*Public storages*) are visible to all users. Public storages include CD-ROM images and templates. CD-ROM images can be used to install operating systems and to rescue unbootable systems. Templates are used to create servers with a preconfigured operating system.\n* `private` (*Private storages*) - visible only to the specific user account and sub-accounts. Users can only create private storages."
+    },
+    "StorageState": {
+      "type": "string",
+      "enum": [
+        "online",
+        "maintenance",
+        "cloning",
+        "backuping",
+        "error"
+      ],
+      "example": "online",
+      "description": "The storage state indicates the storage's current status.\n* `online` - The storage resource is ready for use. The storage can be attached or detached.\n* `maintenance` - Maintenance work is currently performed on the storage. The storage may have been newly created or it is being updated by some API operation.\n* `cloning` - The storage resource is currently the clone source for another storage.\n* `backuping` - The storage resource is currently being backed up to another storage.\n* `error` - The storage has encountered an error and is currently inaccessible."
+    },
     "Storage": {
       "type": "object",
       "properties": {
         "access": {
-          "type": "string",
-          "enum": [
-            "public",
-            "private"
-          ],
-          "example": "private"
+          "$ref": "#/definitions/StorageAccessType"
         },
         "backup_rule": {
           "$ref": "#/definitions/BackupRule"
@@ -1199,38 +1236,17 @@
           "example": 10
         },
         "state": {
-          "type": "string",
-          "enum": [
-            "online",
-            "maintenance",
-            "cloning",
-            "backuping",
-            "error"
-          ],
-          "example": "online"
+          "$ref": "#/definitions/StorageState"
         },
         "tier": {
-          "type": "string",
-          "enum": [
-            "hdd",
-            "maxiops"
-          ],
-          "example": "maxiops"
+          "$ref": "#/definitions/StorageTier"
         },
         "title": {
           "type": "string",
           "example": "Operating system disk"
         },
         "type": {
-          "type": "string",
-          "enum": [
-            "normal",
-            "disk",
-            "cdrom",
-            "template",
-            "backup"
-          ],
-          "example": "normal"
+          "$ref": "#/definitions/StorageType"
         },
         "uuid": {
           "type": "string",
