@@ -766,6 +766,58 @@
           }
         }
       }
+    },
+    "/storage/{type}": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "Type",
+            "type": "string",
+            "enum": [
+              "public",
+              "private",
+              "normal",
+              "backup",
+              "cdrom",
+              "template",
+              "favorite"
+            ],
+            "required": true,
+            "description": "Storage's access type (`public` or `private`) or storage type (`normal`, `backup`, `cdrom` or `template`) or `favorite` status"
+          }
+        ],
+        "summary": "List of storages by type",
+        "operationId": "list storages",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "title": "Success storages response",
+              "properties": {
+                "storages": {
+                  "type": "object",
+                  "properties": {
+                    "storage": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Storage"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
