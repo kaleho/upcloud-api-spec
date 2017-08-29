@@ -228,14 +228,14 @@
           "Server"
         ],
         "summary": "List of servers",
-        "description": "List servers",
+        "description": "Returns a list of all servers associated with the current account.",
         "operationId": "list servers",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "Successful operation",
+            "description": "Normal response",
             "schema": {
               "type": "object",
               "properties": {
@@ -257,6 +257,7 @@
       },
       "post": {
         "summary": "Create server",
+        "description": "Creates a new server instance.",
         "operationId": "create server",
         "tags": [
           "Server"
@@ -278,7 +279,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful create",
+            "description": "Normal response",
             "schema": {
               "title": "Server list response",
               "type": "object",
@@ -324,7 +325,8 @@
     },
     "/server/{serverId}": {
       "get": {
-        "summary": "Server details",
+        "summary": "Get server details",
+        "description": "Returns detailed information about a specific server.",
         "operationId": "server details",
         "tags": [
           "Server"
@@ -341,7 +343,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful operation",
+            "description": "Normal response",
             "schema": {
               "type": "object",
               "properties": {
@@ -444,6 +446,267 @@
           },
           "400": {
             "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/server/{serverId}/start": {
+      "post": {
+        "parameters": [
+          {
+            "name": "serverId",
+            "in": "path",
+            "description": "Id of server to start",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "tags": [
+          "Server"
+        ],
+        "summary": "Start server",
+        "description": "Starts a stopped server. The server state must be `stopped`.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/server/{serverId}/stop": {
+      "post": {
+        "tags": [
+          "Server"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "serverId",
+            "in": "path",
+            "description": "Id of server to stop",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "stop_server",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "stop_type": {
+                  "description": "Type of stop operation performed on the server.",
+                  "type": "string",
+                  "enum": [
+                    "soft",
+                    "hard"
+                  ],
+                  "default": "soft",
+                  "example": "soft"
+                },
+                "timeout": {
+                  "description": "The stop timeout in seconds.",
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 600,
+                  "example": 60
+                }
+              }
+            }
+          }
+        ],
+        "summary": "Stop server",
+        "description": "Stops a started server. The server state must be `started`.",
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/server/{serverId}/restart": {
+      "post": {
+        "parameters": [
+          {
+            "name": "serverId",
+            "in": "path",
+            "description": "Id of server to restart",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "restart_server",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "stop_type": {
+                  "description": "Restart type",
+                  "type": "string",
+                  "enum": [
+                    "soft",
+                    "hard"
+                  ],
+                  "default": "soft",
+                  "example": "soft"
+                },
+                "timeout": {
+                  "description": "Stop timeout in seconds",
+                  "type": "number",
+                  "example": "60",
+                  "minimum": 1,
+                  "maximum": 600
+                },
+                "timeout_action": {
+                  "description": "Action to take if timeout limit is exceeded.",
+                  "type": "string",
+                  "enum": [
+                    "destroy",
+                    "ignore"
+                  ],
+                  "example": "destroy"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Server"
+        ],
+        "summary": "Restart server",
+        "description": "Stops and starts a server. The server state must be `started`.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
             "schema": {
               "$ref": "#/definitions/Error"
             }
