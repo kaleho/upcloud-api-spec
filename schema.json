@@ -952,18 +952,22 @@
             "disk,cdrom",
             "cdrom,disk"
           ],
+          "description": "The storage device boot order.",
           "example": "disk"
         },
         "core_number": {
+          "description": "The number of CPU cores dedicated to the server. See List server configurations.",
           "type": "number",
           "example": 0
         },
         "firewall": {
+          "description": "The state of the server firewall rules.",
           "type": "string",
           "enum": [
             "on",
             "off"
           ],
+          "default": "on",
           "example": "on"
         },
         "host": {
@@ -971,6 +975,7 @@
           "example": 7653311107
         },
         "hostname": {
+          "description": "A valid hostname, e.g. host.example.com. The maximum length is 128 characters.",
           "type": "string",
           "example": "server1.example.com"
         },
@@ -990,16 +995,21 @@
           "example": 0
         },
         "memory_amount": {
+          "description": "The amount of main memory in megabytes. See List server configurations.",
           "type": "number",
           "example": 1024
         },
         "nic_model": {
+          "description": "The model of the server's network interfaces.",
           "type": "string",
-          "example": "virtio"
+          "example": "virtio",
+          "default": "e1000"
         },
         "plan": {
+          "description": "The pricing plan used. If a plan is selected, the core_number and  memory_amount must match the plan if they are present.",
           "type": "string",
-          "example": "1xCPU-1GB"
+          "example": "1xCPU-1GB",
+          "default": "custom"
         },
         "plan_ipv4_bytes": {
           "type": "number",
@@ -1039,10 +1049,11 @@
           }
         },
         "timezone": {
-          "type": "string",
-          "example": "UTC"
+          "description": "A timezone identifier, e.g. Europe/Helsinki. See Timezones.",
+          "$ref": "#/definitions/Timezone"
         },
         "title": {
+          "description": "A short description.",
           "type": "string",
           "example": "server1.example.com"
         },
@@ -1052,26 +1063,31 @@
           "example": "0077fa3d-32db-4b09-9f5f-30d9e9afb565"
         },
         "video_model": {
+          "description": "The model of the server's video interface.",
           "type": "string",
           "example": "cirrus",
           "enum": [
             "vga",
             "cirrus"
-          ]
+          ],
+          "default": "vga"
         },
         "vnc": {
+          "description": "The state of the VNC remote access service.",
           "type": "string",
           "enum": [
             "on",
             "off"
           ],
-          "example": "on"
+          "example": "on",
+          "default": "off"
         },
         "vnc_host": {
           "type": "string",
           "example": "fi-he1l.vnc.upcloud.com"
         },
         "vnc_password": {
+          "description": "The VNC remote access password.",
           "type": "string",
           "example": "aabbccdd"
         },
