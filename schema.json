@@ -42,6 +42,10 @@
     {
       "name": "Firewall",
       "description": "Each server has its own firewall rules. The firewall is enabled on all network interfaces."
+    },
+    {
+      "name": "Tag",
+      "description": "User can define a set of free-form tags to group and identify a subset of their servers. Tags can be for example webserver, database, PROD, QA, DEV etc."
     }
   ],
   "schemes": [
@@ -2925,6 +2929,41 @@
           "maxLength": 255,
           "description": "Freeform comment string for the rule.",
           "example": "Allow SSH from this network"
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32,
+          "description": "The new tag",
+          "example": "DEV"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 255,
+          "description": "Description of the tag",
+          "example": "Development servers"
+        },
+        "servers": {
+          "type": "object",
+          "description": "List of valid UUIDs of existing `servers` to be tagged",
+          "properties": {
+            "server": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "example": "0077fa3d-32db-4b09-9f5f-30d9e9afb565"
+              }
+            }
+          }
         }
       }
     },
