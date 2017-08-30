@@ -1391,6 +1391,139 @@
           }
         }
       }
+    },
+    "/storage/{storageId}/cancel": {
+      "parameters": [
+        {
+          "name": "storageId",
+          "description": "Strage id",
+          "in": "path",
+          "type": "string",
+          "format": "uuid",
+          "required": true
+        }
+      ],
+      "post": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Cancel storage operation",
+        "description": "Cancels a running cloning operation and deletes the incomplete copy.",
+        "responses": {
+          "204": {
+            "description": "Normal response"
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storage/{storageId}/templatize": {
+      "parameters": [
+        {
+          "name": "storageId",
+          "description": "Storage id",
+          "in": "path",
+          "type": "string",
+          "format": "uuid",
+          "required": true
+        }
+      ],
+      "post": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Templatize storage",
+        "description": "Creates an exact copy of an existing storage resource which can be used as a template for creating new servers.",
+        "parameters": [
+          {
+            "name": "storage",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "A short description.",
+                  "example": "My server template",
+                  "maxLength": 64
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storage": {
+                  "$ref": "#/definitions/Storage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
