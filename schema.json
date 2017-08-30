@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Upcloud api",
-    "description": "Upcloud api specification",
+    "description": "The UpCloud API consists of operations used to control resources on UpCloud. The API is a web service interface. HTTPS is used to connect to the API. The API follows the principles of a RESTful web service wherever possible. The base URL for all API operations is  https://api.upcloud.com/. All API operations require authentication.",
     "version": "1.0.0"
   },
   "basePath": "/1.2",
@@ -765,6 +765,84 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Create storage",
+        "description": "Creates a new storage resource.",
+        "parameters": [
+          {
+            "name": "storage",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "size": {
+                  "type": "number",
+                  "minimum": 10,
+                  "maximum": 1024,
+                  "description": "The size of the storage in gigabytes.",
+                  "example": 10
+                },
+                "tier": {
+                  "$ref": "#/definitions/StorageTier",
+                  "example": "maxiops"
+                },
+                "title": {
+                  "type": "string",
+                  "maxItems": 64,
+                  "description": "A short description.",
+                  "example": "My data collection"
+                },
+                "zone": {
+                  "type": "string",
+                  "default": "The zone in which the storage will be created, e.g. fi-hel1. See Zones.",
+                  "example": "fi-hel1"
+                },
+                "backup_rule": {
+                  "$ref": "#/definitions/BackupRule"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storage": {
+                  "$ref": "#/definitions/Storage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
       }
     },
     "/storage/{type}": {
@@ -818,10 +896,42 @@
           }
         }
       }
+    },
+    "/storage/{storageId}": {
+      "parameters": [
+        {
+          "name": "storageId",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Get storage details",
+        "description": "Returns detailed information about a specific storage resource.",
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storage": {
+                  "$ref": "#/definitions/Storage"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
     "Account": {
+      "description": "An API user account and password is required to access the UpCloud API. The API user is associated with an UpCloud account. A user account may have multiple API users to be used in different client software. In order to use resources from the cloud, the account must have enough credits.",
       "type": "object",
       "properties": {
         "credits": {
@@ -837,6 +947,7 @@
     },
     "Price": {
       "type": "object",
+      "description": "UpCloud resources are billed by the hour according to the price list. We also offer pricing plans for fixed server configurations.",
       "properties": {
         "amount": {
           "type": "number",
@@ -926,6 +1037,7 @@
     },
     "Zone": {
       "type": "object",
+      "description": "A zone identifies the physical site where the cloud services are located. Different zones may be used to provide geographical and logical separation of servers.",
       "properties": {
         "name": {
           "type": "string",
@@ -939,10 +1051,12 @@
     },
     "Timezone": {
       "type": "string",
+      "description": "A cloud server's hardware clock is set to a specific timezone. Some operating systems, such as Microsoft Windows, rely on the hardware clock being in local time. Others, such as Linux, use a default setting of a hardware clock in Coordinated Universal Time (UTC). The server's timezone setting can be adjusted to a local time if required by the operating system.",
       "example": "Africa/Abidjan"
     },
     "Plan": {
       "type": "object",
+      "description": "Server plans are preconfigured server configurations with fixed price. Each plan includes certain number of CPU cores, memory amount, storage and transfer quota in addition of one public IPv4 address (private IPv4 addresses and public IPv6 addresses are currently free of charge, so they are not included in plan).",
       "properties": {
         "core_number": {
           "type": "number",
@@ -996,6 +1110,7 @@
     },
     "Server": {
       "type": "object",
+      "description": "The server configuration defines which storage devices the server is attached to, which IP addresses can be used and how the server can be reached for remote management. A server must have at least one storage device attached in order to be started. Servers may have from zero to five public IPv4 and IPv6 addresses. All servers have a private IP address that cannot be removed.",
       "properties": {
         "boot_order": {
           "type": "string",
@@ -1156,6 +1271,7 @@
     },
     "Ip address": {
       "type": "object",
+      "description": "The UpCloud network has public and private IP addresses.",
       "properties": {
         "access": {
           "type": "string",
@@ -1181,6 +1297,7 @@
     },
     "BackupRule": {
       "type": "object",
+      "description": "The backup_rule block defines when the storage device is backed up automatically.",
       "properties": {
         "interval": {
           "type": "string",
