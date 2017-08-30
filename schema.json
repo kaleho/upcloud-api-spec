@@ -2254,6 +2254,299 @@
           }
         }
       }
+    },
+    "/tag": {
+      "get": {
+        "tags": [
+          "Tag"
+        ],
+        "summary": "List existing tags",
+        "description": "Returns all existing tags with their properties and servers tagged",
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "object",
+                  "properties": {
+                    "tag": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Tag"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tag"
+        ],
+        "summary": "Create a new tag",
+        "description": "Creates a new tag. Existing servers can be tagged in same request",
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "$ref": "#/definitions/Tag"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "$ref": "Tag"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/tag/{tagName}": {
+      "parameters": [
+        {
+          "name": "tagName",
+          "description": "Tag name",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Tag"
+        ],
+        "summary": "Modify existing tag",
+        "description": "Changes attributes of an existing tag",
+        "parameters": [
+          {
+            "name": "tag",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "$ref": "#/definitions/Tag"
+                }
+              }
+            },
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "$ref": "#/definitions/Tag"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tag"
+        ],
+        "summary": "Delete tag",
+        "description": "Deleting existing tag untags all servers from specified tag and deletes tag definition",
+        "responses": {
+          "204": {
+            "description": "Normal response"
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/server/{serverId}/tag/{tagList}": {
+      "parameters": [
+        {
+          "name": "serverId",
+          "description": "Server id",
+          "type": "string",
+          "format": "uuid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "tagList",
+          "description": "List of tags",
+          "type": "string",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "tags": [
+          "Server",
+          "Tag"
+        ],
+        "summary": "Assign tag to a server",
+        "description": "Servers can be tagged with one or more tags. The tags used must exist",
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/server/{serverId}/untag/{tagName}": {
+      "parameters": [
+        {
+          "name": "serverId",
+          "description": "Server id",
+          "type": "string",
+          "format": "uuid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "tagName",
+          "description": "Tag name",
+          "type": "string",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "tags": [
+          "Server",
+          "Tag"
+        ],
+        "summary": "Remove tag from server",
+        "description": "Untags tags from given server. The tag(s) must exist",
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
