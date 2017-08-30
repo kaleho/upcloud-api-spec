@@ -3,7 +3,7 @@
   "info": {
     "title": "Upcloud api",
     "description": "The UpCloud API consists of operations used to control resources on UpCloud. The API is a web service interface. HTTPS is used to connect to the API. The API follows the principles of a RESTful web service wherever possible. The base URL for all API operations is  https://api.upcloud.com/. All API operations require authentication.",
-    "version": "1.0.0"
+    "version": "1.2.0"
   },
   "basePath": "/1.2",
   "tags": [
@@ -38,6 +38,10 @@
     {
       "name": "IP Address",
       "description": "The UpCloud network has public and private IP addresses.\n\nPublic IP addresses are used to connect to the server from the Internet. Private addresses are only visible to servers under the same UpCloud account. A server has a minimum of one and a maximum of five public IPv4 and IPv6 addresses. Every server can have one private IPv4 address only. The UpCloud API assigns the IP addresses automatically. IP addresses cannot be reserved for later use.\n\nThe operating system running on the server will see a separate network interface per IP address. On a typical server, there are three network interfaces. The first network interface is assigned to the public network and the second to a private network. If the server has an IPv6 address configured it will use the third network interface. DHCP service is provided on all IPv4 network interfaces for automatic configuration of the correct IP address. IPv6 network interfaces should use stateless address autoconfiguration (SLAAC) with IPv6 privacy extensions disabled. On IPv6-only server DNS parameters can be obtained with stateless DHCPv6."
+    },
+    {
+      "name": "Firewall",
+      "description": "Each server has its own firewall rules. The firewall is enabled on all network interfaces."
     }
   ],
   "schemes": [
@@ -2033,6 +2037,18 @@
           }
         }
       }
+    },
+    "/server/{serverId}/firewall_rule": {
+      "parameters": [
+        {
+          "name": "serverId",
+          "description": "Server id",
+          "in": "path",
+          "type": "string",
+          "format": "uuid",
+          "required": true
+        }
+      ]
     }
   },
   "definitions": {
@@ -2541,6 +2557,14 @@
         }
       }
     },
+    "AddressFamily": {
+      "type": "string",
+      "enum": [
+        "IPv4",
+        "IPv6"
+      ],
+      "example": "IPv4"
+    },
     "Ip address": {
       "type": "object",
       "description": "The UpCloud network has public and private IP addresses.",
@@ -2583,6 +2607,123 @@
             "no"
           ],
           "example": "yes"
+        }
+      }
+    },
+    "FirewallRule": {
+      "type": "object",
+      "required": [
+        "direction",
+        "action",
+        "family"
+      ],
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "in",
+            "out"
+          ],
+          "description": "The direction of network traffic this rule will be applied to.",
+          "example": "in"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "accept",
+            "reject",
+            "drop"
+          ],
+          "description": "Action to take if the rule conditions are met.",
+          "example": "accept"
+        },
+        "position": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1000,
+          "description": "Add the firewall rule to this position in the server's firewall list.",
+          "example": "1"
+        },
+        "family": {
+          "$ref": "#/definitions/AddressFamily",
+          "description": "if protocol is set The address family of new firewall rule",
+          "example": "IPv4"
+        },
+        "protocol": {
+          "type": "string",
+          "enum": [
+            "tcp",
+            "udp",
+            "icmp"
+          ],
+          "description": "The protocol this rule will be applied to.",
+          "example": "tcp"
+        },
+        "icmp_type": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 255,
+          "description": "The ICMP type.",
+          "example": ""
+        },
+        "destination_address_start": {
+          "type": "string",
+          "format": "IP",
+          "description": "The destination address range starts from this address.",
+          "example": ""
+        },
+        "destination_address_end": {
+          "type": "string",
+          "format": "IP",
+          "description": "The destination address range ends to this address.",
+          "example": ""
+        },
+        "destination_port_start": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "The destination port range starts from this port number.",
+          "example": 80
+        },
+        "destination_port_end": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "The destination port range ends to this port number.",
+          "example": 80
+        },
+        "source_address_start": {
+          "type": "string",
+          "format": "IP",
+          "description": "The source address range starts from this address.",
+          "example": "192.168.1.1"
+        },
+        "source_address_end": {
+          "type": "string",
+          "format": "IP",
+          "description": "The source address range ends to this address.",
+          "example": "192.168.1.255"
+        },
+        "source_port_start": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "The source port range starts from this port number.",
+          "example": ""
+        },
+        "source_port_end": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "The source port range ends to this port number.",
+          "example": ""
+        },
+        "comment": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 255,
+          "description": "Freeform comment string for the rule.",
+          "example": "Allow SSH from this network"
         }
       }
     },
