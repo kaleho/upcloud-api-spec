@@ -1524,6 +1524,84 @@
           }
         }
       }
+    },
+    "/storage/{storageId}/backup": {
+      "parameters": [
+        {
+          "name": "storageId",
+          "description": "Storage id",
+          "in": "path",
+          "type": "string",
+          "format": "uuid",
+          "required": true
+        }
+      ],
+      "post": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Create backup",
+        "description": "Creates a point-in-time backup of a storage resource. For automatic, scheduled backups, see  `backup_rule` in Create storage or Modify storage.",
+        "parameters": [
+          {
+            "name": "storage",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Manually created backup",
+                  "description": "A short description."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storage": {
+                  "$ref": "#/definitions/Storage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
