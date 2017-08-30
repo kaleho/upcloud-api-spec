@@ -767,6 +767,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Storage"
+        ],
         "summary": "Create storage",
         "description": "Creates a new storage resource.",
         "parameters": [
@@ -923,6 +926,156 @@
                   "$ref": "#/definitions/Storage"
                 }
               }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Modify storage",
+        "description": "Modifies an existing storage resource. This operation is used to rename or resize the storage.",
+        "parameters": [
+          {
+            "name": "storage",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "backup_rule": {
+                  "$ref": "#/definitions/BackupRule"
+                },
+                "size": {
+                  "type": "number",
+                  "minimum": 10,
+                  "maximum": 1024,
+                  "example": 10
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 64,
+                  "example": "A larger storage"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storage": {
+                  "$ref": "#/definitions/Storage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/server/{serverId}/storage/attach": {
+      "parameters": [
+        {
+          "name": "serverId",
+          "in": "path",
+          "description": "Server id",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Server",
+          "Storage"
+        ],
+        "summary": "Attach storage",
+        "description": "Attaches a storage as a device to a server.",
+        "parameters": [
+          {
+            "name": "storage_device",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Storage device"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           }
         }
