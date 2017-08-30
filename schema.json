@@ -1240,6 +1240,69 @@
           }
         }
       }
+    },
+    "/server/{serverId}/storage/cdrom/eject": {
+      "parameters": [
+        {
+          "name": "serverId",
+          "description": "Server id",
+          "type": "string",
+          "format": "uuid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Eject CD-ROM",
+        "description": "Ejects the storage from the CD-ROM device of a server.",
+        "tags": [
+          "Server",
+          "Storage"
+        ],
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
