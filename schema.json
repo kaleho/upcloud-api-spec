@@ -1303,6 +1303,94 @@
           }
         }
       }
+    },
+    "/storage/{storageId}/clone": {
+      "parameters": [
+        {
+          "name": "storageId",
+          "description": "Storage id",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ],
+      "post": {
+        "summary": "Clone storage",
+        "description": "Creates an exact copy of an existing storage resource.",
+        "tags": [
+          "Storage"
+        ],
+        "parameters": [
+          {
+            "name": "storage",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "zone": {
+                  "type": "string",
+                  "description": "The zone in which the storage will be created, e.g. fi-hel1. See Zones.",
+                  "example": "fi-hel1"
+                },
+                "tier": {
+                  "$ref": "#/definitions/StorageTier",
+                  "example": "maxiops"
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 64,
+                  "description": "A short description.",
+                  "example": "Clone of operating system disk"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storage": {
+                  "$ref": "#/definitions/Storage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
