@@ -1080,6 +1080,86 @@
           }
         }
       }
+    },
+    "/server/{serverId}/storage/detach": {
+      "parameters": [
+        {
+          "name": "serverId",
+          "description": "Server id",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Server",
+          "Storage"
+        ],
+        "summary": "Detach storage",
+        "description": "Detaches a storage resource from a server.",
+        "parameters": [
+          {
+            "name": "storage_device",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "description": "Detach the storage attached to this address.",
+                  "example": "scsi:0:0"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
