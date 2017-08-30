@@ -1160,6 +1160,86 @@
           }
         }
       }
+    },
+    "/server/{serverId}/storage/cdrom/load": {
+      "parameters": [
+        {
+          "name": "serverId",
+          "description": "Server id",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Server",
+          "Storage"
+        ],
+        "summary": "Load CD-ROM",
+        "description": "Loads a storage as a CD-ROM in the CD-ROM device of a server.",
+        "parameters": [
+          {
+            "name": "storage_device",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storage": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "The UUID of the storage to be loaded in the CD-ROM device.",
+                  "example": "01000000-0000-4000-8000-000060010101"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
