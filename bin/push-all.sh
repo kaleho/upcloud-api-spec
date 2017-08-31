@@ -6,7 +6,7 @@ langs[3]=csharp
 langs[4]=ruby
 langs[5]=php
 
-./bin/commit-all.sh -m "$1"
+./bin/commit-all.sh "$1"
 
 for lang in $(seq 1 5)
   do
