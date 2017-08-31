@@ -58,6 +58,7 @@
         "tags": [
           "Account"
         ],
+        "operationId": "get account",
         "summary": "Account information",
         "description": "Returns information on the user's account.",
         "responses": {
@@ -78,6 +79,7 @@
         ],
         "summary": "List prices",
         "description": "Returns a list resource prices.",
+        "operationId": "list prices",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -109,6 +111,7 @@
         ],
         "summary": "List available zones",
         "description": "Returns a list of available zones.",
+        "operationId": "list zones",
         "produces": [
           "application/json"
         ],
@@ -143,6 +146,7 @@
         ],
         "summary": "List timezones",
         "description": "Returns a list of available timezones. Timezones are used to set the hardware clock for servers.",
+        "operationId": "list timezones",
         "produces": [
           "application/json"
         ],
@@ -176,6 +180,7 @@
         ],
         "summary": "List available plans",
         "description": "Returns a list of available plans.",
+        "operationId": "list plans",
         "produces": [
           "application/json"
         ],
@@ -209,6 +214,7 @@
         ],
         "summary": "List server configurations",
         "description": "Returns a list of available server configurations. A server configuration consists of a combination of CPU core count and main memory amount. All servers are created using these configurations.",
+        "operationId": "list server configurations",
         "produces": [
           "application/json"
         ],
@@ -370,7 +376,7 @@
       },
       "put": {
         "summary": "Modify server",
-        "operationId": "update server",
+        "operationId": "modify server",
         "tags": [
           "Server"
         ],
@@ -501,6 +507,7 @@
         ],
         "summary": "Start server",
         "description": "Starts a stopped server. The server state must be `stopped`.",
+        "operationId": "start server",
         "produces": [
           "application/json"
         ],
@@ -560,6 +567,7 @@
         "produces": [
           "application/json"
         ],
+        "operationId": "stop server",
         "parameters": [
           {
             "name": "serverId",
@@ -697,6 +705,7 @@
         ],
         "summary": "Restart server",
         "description": "Stops and starts a server. The server state must be `started`.",
+        "operationId": "restart server",
         "produces": [
           "application/json"
         ],
@@ -784,6 +793,7 @@
         ],
         "summary": "Create storage",
         "description": "Creates a new storage resource.",
+        "operationId": "create storage",
         "parameters": [
           {
             "name": "storage",
@@ -884,7 +894,7 @@
           }
         ],
         "summary": "List of storages by type",
-        "operationId": "list storages",
+        "operationId": "list storage types",
         "produces": [
           "application/json"
         ],
@@ -928,6 +938,7 @@
         ],
         "summary": "Get storage details",
         "description": "Returns detailed information about a specific storage resource.",
+        "operationId": "get storage details",
         "responses": {
           "200": {
             "description": "Normal response",
@@ -948,6 +959,7 @@
         ],
         "summary": "Modify storage",
         "description": "Modifies an existing storage resource. This operation is used to rename or resize the storage.",
+        "operationId": "modify storage",
         "parameters": [
           {
             "name": "storage",
@@ -1024,6 +1036,7 @@
         ],
         "summary": "Delete storage",
         "description": "Deleted an existing storage resource.",
+        "operationId": "delete storage",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -1079,6 +1092,7 @@
         ],
         "summary": "Attach storage",
         "description": "Attaches a storage as a device to a server.",
+        "operationId": "attach storage",
         "parameters": [
           {
             "name": "storage_device",
@@ -1153,6 +1167,7 @@
         ],
         "summary": "Detach storage",
         "description": "Detaches a storage resource from a server.",
+        "operationId": "detach storage",
         "parameters": [
           {
             "name": "storage_device",
@@ -1233,6 +1248,7 @@
         ],
         "summary": "Load CD-ROM",
         "description": "Loads a storage as a CD-ROM in the CD-ROM device of a server.",
+        "operationId": "load cdrom",
         "parameters": [
           {
             "name": "storage_device",
@@ -1309,6 +1325,7 @@
       "post": {
         "summary": "Eject CD-ROM",
         "description": "Ejects the storage from the CD-ROM device of a server.",
+        "operationId": "eject cdrom",
         "tags": [
           "Server",
           "Storage"
@@ -1372,6 +1389,7 @@
       "post": {
         "summary": "Clone storage",
         "description": "Creates an exact copy of an existing storage resource.",
+        "operationId": "clone storage",
         "tags": [
           "Storage"
         ],
@@ -1463,6 +1481,7 @@
         ],
         "summary": "Cancel storage operation",
         "description": "Cancels a running cloning operation and deletes the incomplete copy.",
+        "operationId": "cancel operation",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -1517,6 +1536,7 @@
         ],
         "summary": "Templatize storage",
         "description": "Creates an exact copy of an existing storage resource which can be used as a template for creating new servers.",
+        "operationId": "templatize storage",
         "parameters": [
           {
             "name": "storage",
@@ -1596,6 +1616,7 @@
         ],
         "summary": "Create backup",
         "description": "Creates a point-in-time backup of a storage resource. For automatic, scheduled backups, see  `backup_rule` in Create storage or Modify storage.",
+        "operationId": "backup storage",
         "parameters": [
           {
             "name": "storage",
@@ -1671,6 +1692,7 @@
       "post": {
         "summary": "Restore backup",
         "description": "Restores the origin storage with data from the specified backup storage.",
+        "operationId": "restore storage",
         "tags": [
           "Storage"
         ],
@@ -1731,6 +1753,7 @@
         ],
         "summary": "Add storage to favorites",
         "description": "Adds a storage to the list of favorite storages. To list favorite storages, see List storages. This operations succeeds even if the storage is already on the list of favorites.",
+        "operationId": "favorite storage",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -1761,6 +1784,7 @@
         ],
         "summary": "Remove storage from favorites",
         "description": "Delete a storage from the list of favorite storages. To list favorite storages, see List storages. This operations succeeds even if the storage is already on the list of favorites.",
+        "operationId": "unfavorite storage",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -1793,6 +1817,7 @@
         ],
         "summary": "List IP addresses",
         "description": "Returns a list of all IP addresses assigned to servers on the current user account.",
+        "operationId": "list ips",
         "responses": {
           "200": {
             "description": "Normal response",
@@ -1821,6 +1846,7 @@
         ],
         "summary": "Assign IP address",
         "description": "Assigns a new IP address to a server.",
+        "operationId": "add ip",
         "parameters": [
           {
             "name": "ip_address",
@@ -1915,6 +1941,7 @@
       "get": {
         "summary": "Get IP address details",
         "description": "Returns detailed information about a specific IP address.",
+        "operationId": "get details",
         "tags": [
           "IP Address"
         ],
@@ -1938,6 +1965,7 @@
         ],
         "summary": "Modify IP address",
         "description": "Modifies the reverse DNS PTR record corresponding to an IP address. The PTR record can only be set to public IP address.",
+        "operationId": "modify ip",
         "parameters": [
           {
             "name": "ip_address",
@@ -2005,6 +2033,7 @@
         ],
         "summary": "Release IP address",
         "description": "Removes an IP address from a server.",
+        "operationId": "delete ip",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -2089,6 +2118,7 @@
         ],
         "summary": "Create firewall rule",
         "description": "Creates a new firewall rule",
+        "operationId": "create firewall rule",
         "parameters": [
           {
             "name": "firewall_rule",
@@ -2167,6 +2197,7 @@
         ],
         "summary": "Get firewall rule details",
         "description": "Returns detailed information about a specific firewall rule",
+        "operationId": "get firewall rule",
         "responses": {
           "200": {
             "description": "Normal response",
@@ -2218,6 +2249,7 @@
         ],
         "summary": "Remove firewall rule",
         "description": "Removes a firewall rule from a server. Firewall rules must be removed individually. The positions of remaining firewall rules will be adjusted after a rule is removed.",
+        "operationId": "delete firewall rule",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -2262,6 +2294,7 @@
         ],
         "summary": "List existing tags",
         "description": "Returns all existing tags with their properties and servers tagged",
+        "operationId": "list tags",
         "responses": {
           "200": {
             "description": "Normal response",
@@ -2290,6 +2323,7 @@
         ],
         "summary": "Create a new tag",
         "description": "Creates a new tag. Existing servers can be tagged in same request",
+        "operationId": "create tag",
         "parameters": [
           {
             "name": "tag",
@@ -2312,7 +2346,7 @@
               "type": "object",
               "properties": {
                 "tag": {
-                  "$ref": "Tag"
+                  "$ref": "#/definitions/Tag"
                 }
               }
             }
@@ -2348,6 +2382,7 @@
         ],
         "summary": "Modify existing tag",
         "description": "Changes attributes of an existing tag",
+        "operationId": "modify tag",
         "parameters": [
           {
             "name": "tag",
@@ -2407,6 +2442,7 @@
         ],
         "summary": "Delete tag",
         "description": "Deleting existing tag untags all servers from specified tag and deletes tag definition",
+        "operationId": "delete tag",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -2457,6 +2493,7 @@
         ],
         "summary": "Assign tag to a server",
         "description": "Servers can be tagged with one or more tags. The tags used must exist",
+        "operationId": "assign tag",
         "responses": {
           "200": {
             "description": "Normal response",
@@ -2515,6 +2552,7 @@
         ],
         "summary": "Remove tag from server",
         "description": "Untags tags from given server. The tag(s) must exist",
+        "operationId": "untag",
         "responses": {
           "200": {
             "description": "Normal response",
