@@ -84,6 +84,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
+              "title": "price list response",
               "type": "object",
               "properties": {
                 "price": {
@@ -119,6 +120,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
+              "title": "zone list response",
               "type": "object",
               "properties": {
                 "zones": {
@@ -154,6 +156,7 @@
           "200": {
             "description": "Successfull operation",
             "schema": {
+              "title": "timezone list response",
               "type": "object",
               "properties": {
                 "timezones": {
@@ -188,6 +191,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "available plan list response",
               "type": "object",
               "properties": {
                 "plans": {
@@ -222,6 +226,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "configuration list response",
               "type": "object",
               "properties": {
                 "server_sizes": {
@@ -256,6 +261,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "server list response",
               "type": "object",
               "properties": {
                 "servers": {
@@ -364,6 +370,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "server details response",
               "type": "object",
               "properties": {
                 "server": {
@@ -515,6 +522,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "start server response",
               "type": "object",
               "properties": {
                 "server": {
@@ -611,6 +619,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "stop server response",
               "type": "object",
               "properties": {
                 "server": {
@@ -713,6 +722,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "restart server response",
               "type": "object",
               "properties": {
                 "server": {
@@ -835,6 +845,7 @@
           "201": {
             "description": "Normal response",
             "schema": {
+              "title": "create storage response",
               "type": "object",
               "properties": {
                 "storage": {
@@ -943,6 +954,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "storage details response",
               "type": "object",
               "properties": {
                 "storage": {
@@ -990,6 +1002,7 @@
           "202": {
             "description": "Normal response",
             "schema": {
+              "title": "modify storage response",
               "type": "object",
               "properties": {
                 "storage": {
@@ -1108,6 +1121,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "attach storage response",
               "type": "object",
               "properties": {
                 "server": {
@@ -1189,6 +1203,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "detach storage response",
               "type": "object",
               "properties": {
                 "server": {
@@ -1270,6 +1285,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "load cdrom response",
               "type": "object",
               "properties": {
                 "server": {
@@ -1334,6 +1350,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "eject cdrom response",
               "type": "object",
               "properties": {
                 "server": {
@@ -1423,6 +1440,7 @@
           "201": {
             "description": "Normal response",
             "schema": {
+              "title": "clone storage response",
               "type": "object",
               "properties": {
                 "storage": {
@@ -1558,6 +1576,7 @@
           "201": {
             "description": "Normal response",
             "schema": {
+              "title": "templatize storage response",
               "type": "object",
               "properties": {
                 "storage": {
@@ -1637,6 +1656,7 @@
           "201": {
             "description": "Normal response",
             "schema": {
+              "title": "create backup response",
               "type": "object",
               "properties": {
                 "storage": {
@@ -1822,6 +1842,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "ip address list response",
               "type": "object",
               "properties": {
                 "ip_addresses": {
@@ -1886,6 +1907,7 @@
           "201": {
             "description": "Normal response",
             "schema": {
+              "title": "assign ip response",
               "type": "object",
               "properties": {
                 "ip_address": {
@@ -1949,6 +1971,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "ip address details response",
               "type": "object",
               "properties": {
                 "ip_address": {
@@ -1987,6 +2010,7 @@
           "202": {
             "description": "Normal response",
             "schema": {
+              "title": "ip address modify response",
               "type": "object",
               "properties": {
                 "ip_address": {
@@ -2093,6 +2117,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "firewall rule list response",
               "type": "object",
               "properties": {
                 "firewall_rules": {
@@ -2202,6 +2227,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "firewall rule details response",
               "type": "object",
               "properties": {
                 "firewall_rule": {
@@ -2299,6 +2325,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "tag list response",
               "type": "object",
               "properties": {
                 "tags": {
@@ -2343,6 +2370,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "create new tag response",
               "type": "object",
               "properties": {
                 "tag": {
@@ -2402,6 +2430,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "modify tag response",
               "type": "object",
               "properties": {
                 "tag": {
@@ -2498,6 +2527,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "assign tag response",
               "type": "object",
               "properties": {
                 "server": {
@@ -2557,6 +2587,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
+              "title": "remove tag response",
               "type": "object",
               "properties": {
                 "server": {
