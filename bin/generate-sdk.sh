@@ -12,7 +12,6 @@ then
   langs[3]=csharp
   langs[4]=ruby
   langs[5]=php
-  langs[6]=html
 
   for lang in $(seq 1 5)
   do

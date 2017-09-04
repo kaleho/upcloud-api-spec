@@ -65,7 +65,7 @@
         "tags": [
           "Account"
         ],
-        "operationId": "get account",
+        "operationId": "getAccount",
         "summary": "Account information",
         "description": "Returns information on the user's account.",
         "responses": {
@@ -86,7 +86,7 @@
         ],
         "summary": "List prices",
         "description": "Returns a list resource prices.",
-        "operationId": "list prices",
+        "operationId": "listPrices",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -119,7 +119,7 @@
         ],
         "summary": "List available zones",
         "description": "Returns a list of available zones.",
-        "operationId": "list zones",
+        "operationId": "listZones",
         "produces": [
           "application/json"
         ],
@@ -155,7 +155,7 @@
         ],
         "summary": "List timezones",
         "description": "Returns a list of available timezones. Timezones are used to set the hardware clock for servers.",
-        "operationId": "list timezones",
+        "operationId": "listTimezones",
         "produces": [
           "application/json"
         ],
@@ -190,7 +190,7 @@
         ],
         "summary": "List available plans",
         "description": "Returns a list of available plans.",
-        "operationId": "list plans",
+        "operationId": "listPlans",
         "produces": [
           "application/json"
         ],
@@ -225,7 +225,7 @@
         ],
         "summary": "List server configurations",
         "description": "Returns a list of available server configurations. A server configuration consists of a combination of CPU core count and main memory amount. All servers are created using these configurations.",
-        "operationId": "list server configurations",
+        "operationId": "listServerConfigurations",
         "produces": [
           "application/json"
         ],
@@ -260,7 +260,7 @@
         ],
         "summary": "List of servers",
         "description": "Returns a list of all servers associated with the current account.",
-        "operationId": "list servers",
+        "operationId": "listServers",
         "produces": [
           "application/json"
         ],
@@ -290,7 +290,7 @@
       "post": {
         "summary": "Create server",
         "description": "Creates a new server instance.",
-        "operationId": "create server",
+        "operationId": "createServer",
         "tags": [
           "Server"
         ],
@@ -359,7 +359,7 @@
       "get": {
         "summary": "Get server details",
         "description": "Returns detailed information about a specific server.",
-        "operationId": "server details",
+        "operationId": "serverDetails",
         "tags": [
           "Server"
         ],
@@ -390,7 +390,7 @@
       },
       "put": {
         "summary": "Modify server",
-        "operationId": "modify server",
+        "operationId": "modifyServer",
         "tags": [
           "Server"
         ],
@@ -459,7 +459,7 @@
       },
       "delete": {
         "summary": "Delete server",
-        "operationId": "delete server",
+        "operationId": "deleteServer",
         "tags": [
           "Server"
         ],
@@ -521,7 +521,7 @@
         ],
         "summary": "Start server",
         "description": "Starts a stopped server. The server state must be `stopped`.",
-        "operationId": "start server",
+        "operationId": "startServer",
         "produces": [
           "application/json"
         ],
@@ -582,7 +582,7 @@
         "produces": [
           "application/json"
         ],
-        "operationId": "stop server",
+        "operationId": "stopServer",
         "parameters": [
           {
             "name": "serverId",
@@ -721,7 +721,7 @@
         ],
         "summary": "Restart server",
         "description": "Stops and starts a server. The server state must be `started`.",
-        "operationId": "restart server",
+        "operationId": "restartServer",
         "produces": [
           "application/json"
         ],
@@ -777,7 +777,7 @@
           "Storage"
         ],
         "summary": "List of storages",
-        "operationId": "list storages",
+        "operationId": "listStorages",
         "produces": [
           "application/json"
         ],
@@ -810,7 +810,7 @@
         ],
         "summary": "Create storage",
         "description": "Creates a new storage resource.",
-        "operationId": "create storage",
+        "operationId": "createStorage",
         "parameters": [
           {
             "name": "storage",
@@ -888,58 +888,6 @@
         }
       }
     },
-    "/storage/{type}": {
-      "get": {
-        "tags": [
-          "Storage"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "Type",
-            "type": "string",
-            "enum": [
-              "public",
-              "private",
-              "normal",
-              "backup",
-              "cdrom",
-              "template",
-              "favorite"
-            ],
-            "required": true,
-            "description": "Storage's access type (`public` or `private`) or storage type (`normal`, `backup`, `cdrom` or `template`) or `favorite` status"
-          }
-        ],
-        "summary": "List of storages by type",
-        "operationId": "list storage types",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "type": "object",
-              "title": "Success storages response",
-              "properties": {
-                "storages": {
-                  "type": "object",
-                  "properties": {
-                    "storage": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/definitions/Storage"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/storage/{storageId}": {
       "parameters": [
         {
@@ -956,7 +904,7 @@
         ],
         "summary": "Get storage details",
         "description": "Returns detailed information about a specific storage resource.",
-        "operationId": "get storage details",
+        "operationId": "getStorageDetails",
         "responses": {
           "200": {
             "description": "Normal response",
@@ -978,7 +926,7 @@
         ],
         "summary": "Modify storage",
         "description": "Modifies an existing storage resource. This operation is used to rename or resize the storage.",
-        "operationId": "modify storage",
+        "operationId": "modifyStorage",
         "parameters": [
           {
             "name": "storage",
@@ -1056,7 +1004,7 @@
         ],
         "summary": "Delete storage",
         "description": "Deleted an existing storage resource.",
-        "operationId": "delete storage",
+        "operationId": "deleteStorage",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -1094,6 +1042,58 @@
         }
       }
     },
+    "/storage/{type}/": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "type": "string",
+            "enum": [
+              "public",
+              "private",
+              "normal",
+              "backup",
+              "cdrom",
+              "template",
+              "favorite"
+            ],
+            "required": true,
+            "description": "Storage's access type (`public` or `private`) or storage type (`normal`, `backup`, `cdrom` or `template`) or `favorite` status"
+          }
+        ],
+        "summary": "List of storages by type",
+        "operationId": "listStorageTypes",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "title": "Success storages response",
+              "properties": {
+                "storages": {
+                  "type": "object",
+                  "properties": {
+                    "storage": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Storage"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/server/{serverId}/storage/attach": {
       "parameters": [
         {
@@ -1112,7 +1112,7 @@
         ],
         "summary": "Attach storage",
         "description": "Attaches a storage as a device to a server.",
-        "operationId": "attach storage",
+        "operationId": "attachStorage",
         "parameters": [
           {
             "name": "storage_device",
@@ -1188,7 +1188,7 @@
         ],
         "summary": "Detach storage",
         "description": "Detaches a storage resource from a server.",
-        "operationId": "detach storage",
+        "operationId": "detachStorage",
         "parameters": [
           {
             "name": "storage_device",
@@ -1270,7 +1270,7 @@
         ],
         "summary": "Load CD-ROM",
         "description": "Loads a storage as a CD-ROM in the CD-ROM device of a server.",
-        "operationId": "load cdrom",
+        "operationId": "loadCdrom",
         "parameters": [
           {
             "name": "storage_device",
@@ -1348,7 +1348,7 @@
       "post": {
         "summary": "Eject CD-ROM",
         "description": "Ejects the storage from the CD-ROM device of a server.",
-        "operationId": "eject cdrom",
+        "operationId": "ejectCdrom",
         "tags": [
           "Server",
           "Storage"
@@ -1413,7 +1413,7 @@
       "post": {
         "summary": "Clone storage",
         "description": "Creates an exact copy of an existing storage resource.",
-        "operationId": "clone storage",
+        "operationId": "cloneStorage",
         "tags": [
           "Storage"
         ],
@@ -1506,7 +1506,7 @@
         ],
         "summary": "Cancel storage operation",
         "description": "Cancels a running cloning operation and deletes the incomplete copy.",
-        "operationId": "cancel operation",
+        "operationId": "cancelOperation",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -1561,7 +1561,7 @@
         ],
         "summary": "Templatize storage",
         "description": "Creates an exact copy of an existing storage resource which can be used as a template for creating new servers.",
-        "operationId": "templatize storage",
+        "operationId": "templatizeStorage",
         "parameters": [
           {
             "name": "storage",
@@ -1642,7 +1642,7 @@
         ],
         "summary": "Create backup",
         "description": "Creates a point-in-time backup of a storage resource. For automatic, scheduled backups, see  `backup_rule` in Create storage or Modify storage.",
-        "operationId": "backup storage",
+        "operationId": "backupStorage",
         "parameters": [
           {
             "name": "storage",
@@ -1719,7 +1719,7 @@
       "post": {
         "summary": "Restore backup",
         "description": "Restores the origin storage with data from the specified backup storage.",
-        "operationId": "restore storage",
+        "operationId": "restoreStorage",
         "tags": [
           "Storage"
         ],
@@ -1780,7 +1780,7 @@
         ],
         "summary": "Add storage to favorites",
         "description": "Adds a storage to the list of favorite storages. To list favorite storages, see List storages. This operations succeeds even if the storage is already on the list of favorites.",
-        "operationId": "favorite storage",
+        "operationId": "favoriteStorage",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -1811,7 +1811,7 @@
         ],
         "summary": "Remove storage from favorites",
         "description": "Delete a storage from the list of favorite storages. To list favorite storages, see List storages. This operations succeeds even if the storage is already on the list of favorites.",
-        "operationId": "unfavorite storage",
+        "operationId": "unfavoriteStorage",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -1844,7 +1844,7 @@
         ],
         "summary": "List IP addresses",
         "description": "Returns a list of all IP addresses assigned to servers on the current user account.",
-        "operationId": "list ips",
+        "operationId": "listIps",
         "responses": {
           "200": {
             "description": "Normal response",
@@ -1874,7 +1874,7 @@
         ],
         "summary": "Assign IP address",
         "description": "Assigns a new IP address to a server.",
-        "operationId": "add ip",
+        "operationId": "addIp",
         "parameters": [
           {
             "name": "ip_address",
@@ -1970,7 +1970,7 @@
       "get": {
         "summary": "Get IP address details",
         "description": "Returns detailed information about a specific IP address.",
-        "operationId": "get details",
+        "operationId": "getDetails",
         "tags": [
           "IP Address"
         ],
@@ -1995,7 +1995,7 @@
         ],
         "summary": "Modify IP address",
         "description": "Modifies the reverse DNS PTR record corresponding to an IP address. The PTR record can only be set to public IP address.",
-        "operationId": "modify ip",
+        "operationId": "modifyIp",
         "parameters": [
           {
             "name": "ip_address",
@@ -2064,7 +2064,7 @@
         ],
         "summary": "Release IP address",
         "description": "Removes an IP address from a server.",
-        "operationId": "delete ip",
+        "operationId": "deleteIp",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -2150,7 +2150,7 @@
         ],
         "summary": "Create firewall rule",
         "description": "Creates a new firewall rule",
-        "operationId": "create firewall rule",
+        "operationId": "createFirewallRule",
         "parameters": [
           {
             "name": "firewall_rule",
@@ -2229,7 +2229,7 @@
         ],
         "summary": "Get firewall rule details",
         "description": "Returns detailed information about a specific firewall rule",
-        "operationId": "get firewall rule",
+        "operationId": "getFirewallRule",
         "responses": {
           "200": {
             "description": "Normal response",
@@ -2282,7 +2282,7 @@
         ],
         "summary": "Remove firewall rule",
         "description": "Removes a firewall rule from a server. Firewall rules must be removed individually. The positions of remaining firewall rules will be adjusted after a rule is removed.",
-        "operationId": "delete firewall rule",
+        "operationId": "deleteFirewallRule",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -2327,7 +2327,7 @@
         ],
         "summary": "List existing tags",
         "description": "Returns all existing tags with their properties and servers tagged",
-        "operationId": "list tags",
+        "operationId": "listTags",
         "responses": {
           "200": {
             "description": "Normal response",
@@ -2357,7 +2357,7 @@
         ],
         "summary": "Create a new tag",
         "description": "Creates a new tag. Existing servers can be tagged in same request",
-        "operationId": "create tag",
+        "operationId": "createTag",
         "parameters": [
           {
             "name": "tag",
@@ -2417,7 +2417,7 @@
         ],
         "summary": "Modify existing tag",
         "description": "Changes attributes of an existing tag",
-        "operationId": "modify tag",
+        "operationId": "modifyTag",
         "parameters": [
           {
             "name": "tag",
@@ -2478,7 +2478,7 @@
         ],
         "summary": "Delete tag",
         "description": "Deleting existing tag untags all servers from specified tag and deletes tag definition",
-        "operationId": "delete tag",
+        "operationId": "deleteTag",
         "responses": {
           "204": {
             "description": "Normal response"
@@ -2529,7 +2529,7 @@
         ],
         "summary": "Assign tag to a server",
         "description": "Servers can be tagged with one or more tags. The tags used must exist",
-        "operationId": "assign tag",
+        "operationId": "assignTag",
         "responses": {
           "200": {
             "description": "Normal response",

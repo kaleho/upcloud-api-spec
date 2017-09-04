@@ -15,7 +15,10 @@
     "generate-sdk:java": "./bin/generate-sdk.sh -l java",
     "generate-sdk:php": "./bin/generate-sdk.sh -l php",
     "generate-sdk:ruby": "./bin/generate-sdk.sh -l ruby",
-    "generate-sdk": "./bin/generate-sdk.sh"
+    "generate-sdk": "./bin/generate-sdk.sh",
+    "server-stub:generate": "./bin/generate-server.sh && cd server && yarn && cd ..",
+    "server-stub:start": "node ./server",
+    "server-stub": "yarn server-stub:generate && yarn server-stub:start"
   },
   "dependencies": {
     "http-server": "^0.10.0",
