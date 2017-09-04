@@ -1,6 +1,7 @@
 #!/bin/bash
 
 output="sdk"
+templates="templates"
 
 if [ $# -eq 0 ]
 then
@@ -11,6 +12,7 @@ then
   langs[3]=csharp
   langs[4]=ruby
   langs[5]=php
+  langs[6]=html
 
   for lang in $(seq 1 5)
   do
@@ -45,5 +47,5 @@ else
   shift $((OPTIND-1))
 
   [ "$1" = "--" ] && shift
-  java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i schema.json -l $lang -o $output/$lang
+  java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i schema.json -l $lang -o $output/$lang -t $templates/$lang
 fi

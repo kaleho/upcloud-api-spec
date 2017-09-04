@@ -1,0 +1,31 @@
+<?php
+{{#models}}
+{{#model}}
+/**
+ * {{classname}}
+ *
+ * PHP version 5
+ *
+ * @category Class
+ * @package  {{invokerPackage}}
+ */
+
+{{>partial_header}}
+
+namespace {{modelPackage}};
+{{^isEnum}}
+
+use \ArrayAccess;
+{{/isEnum}}
+
+/**
+ * {{classname}} Class Doc Comment
+ *
+ * @category    Class
+{{#description}}
+ * @description {{description}}
+{{/description}}
+ * @package     {{invokerPackage}}
+ */
+{{#isEnum}}{{>model_enum}}{{/isEnum}}{{^isEnum}}{{>model_generic}}{{/isEnum}}
+{{/model}}{{/models}}
