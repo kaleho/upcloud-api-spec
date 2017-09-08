@@ -1,0 +1,5 @@
+{
+  "apiPackage": "Upcloud",
+  "invokerPackage": "Upcloud\\ApiClient",
+  "packagePath": "upcloud"
+}

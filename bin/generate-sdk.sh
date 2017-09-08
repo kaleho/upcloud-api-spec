@@ -46,5 +46,5 @@ else
   shift $((OPTIND-1))
 
   [ "$1" = "--" ] && shift
-  java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i schema.json -l $lang -o $output/$lang -t $templates/$lang
+  java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i schema.json -l $lang -o $output/$lang -t $templates/$lang -c $lang-config.json
 fi

@@ -10,7 +10,7 @@
     "start": "node app",
     "dev": "nodemon app",
     "validate": "curl -X POST -d @schema.json -H 'Content-Type:application/json' http://online.swagger.io/validator/debug",
-    "generate-sdk:js": "./bin/generate-sdk.sh -l javascript",
+    "generate-sdk:javascript": "./bin/generate-sdk.sh -l javascript",
     "generate-sdk:csharp": "./bin/generate-sdk.sh -l csharp",
     "generate-sdk:java": "./bin/generate-sdk.sh -l java",
     "generate-sdk:php": "./bin/generate-sdk.sh -l php",

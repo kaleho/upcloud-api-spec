@@ -1,0 +1,8 @@
+{
+  "groupId": "com.upcloud",
+  "artifactId": "UpcloudApi",
+  "artifactVersion": "1.2.0",
+  "apiPackage": "com.upcloud.client.api",
+  "modelPackage": "com.upcloud.client.models",
+  "invokerPackage": "com.upcloud.client"
+}
