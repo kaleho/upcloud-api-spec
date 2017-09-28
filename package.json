@@ -18,7 +18,7 @@
     "generate-sdk": "./bin/generate-sdk.sh",
     "server-stub:generate": "./bin/generate-server.sh && cd server && yarn && cd ..",
     "server-stub:start": "node ./server",
-    "server-stub": "yarn server-stub:generate && yarn server-stub:start"
+    "server-stub": "yarn server-stub:generate && NODE_ENV=development yarn server-stub:start"
   },
   "dependencies": {
     "http-server": "^0.10.0",

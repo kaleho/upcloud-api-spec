@@ -1,5 +1,6 @@
 {
   "projectName": "upcloud",
   "moduleName": "upcloud",
-  "projectVersion": "1.2.0"
+  "projectVersion": "1.2.0",
+  "usePromises": true
 }

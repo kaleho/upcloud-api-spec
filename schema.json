@@ -313,7 +313,7 @@
           "200": {
             "description": "Normal response",
             "schema": {
-              "title": "Server list response",
+              "title": "create server response",
               "type": "object",
               "properties": {
                 "server": {
@@ -2118,6 +2118,12 @@
           "Server",
           "Firewall"
         ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
         "summary": "List firewall rules",
         "description": "Returns a list of firewall rules for a specific server.",
         "responses": {
@@ -2151,11 +2157,18 @@
         "summary": "Create firewall rule",
         "description": "Creates a new firewall rule",
         "operationId": "createFirewallRule",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "firewall_rule",
             "schema": {
               "type": "object",
+              "title": "Firewall rule request",
               "properties": {
                 "firewall_rule": {
                   "$ref": "#/definitions/FirewallRule"
@@ -2168,7 +2181,16 @@
         ],
         "responses": {
           "201": {
-            "description": "Normal response"
+            "description": "Normal response",
+            "schema": {
+              "type": "object",
+              "title": "firewall rule create response",
+              "properties": {
+                "firewall_rule": {
+                  "$ref": "#/definitions/FirewallRule"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request",
@@ -3216,7 +3238,7 @@
           "minimum": 1,
           "maximum": 1000,
           "description": "Add the firewall rule to this position in the server's firewall list.",
-          "example": "1"
+          "example": 1
         },
         "family": {
           "$ref": "#/definitions/AddressFamily",
@@ -3238,19 +3260,19 @@
           "minimum": 0,
           "maximum": 255,
           "description": "The ICMP type.",
-          "example": ""
+          "example": 0
         },
         "destination_address_start": {
           "type": "string",
           "format": "IP",
           "description": "The destination address range starts from this address.",
-          "example": ""
+          "example": "192.168.0.1"
         },
         "destination_address_end": {
           "type": "string",
           "format": "IP",
           "description": "The destination address range ends to this address.",
-          "example": ""
+          "example": "192.168.255.255"
         },
         "destination_port_start": {
           "type": "number",
@@ -3283,14 +3305,14 @@
           "minimum": 1,
           "maximum": 65535,
           "description": "The source port range starts from this port number.",
-          "example": ""
+          "example": 1
         },
         "source_port_end": {
           "type": "number",
           "minimum": 1,
           "maximum": 65535,
           "description": "The source port range ends to this port number.",
-          "example": ""
+          "example": 65535
         },
         "comment": {
           "type": "string",
@@ -3337,7 +3359,7 @@
       }
     },
     "ErrorStatus": {
-      "type": "number",
+      "type": "string",
       "enum": [
         400,
         402,
