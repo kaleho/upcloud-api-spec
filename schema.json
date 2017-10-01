@@ -56,12 +56,16 @@
     }
   ],
   "schemes": [
-    "http",
     "https"
   ],
   "paths": {
     "/account": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Account"
         ],
@@ -73,7 +77,13 @@
             "description": "Successful operation",
             "schema": {
               "type": "object",
-              "$ref": "#/definitions/Account"
+              "title": "accountResponse",
+              "description": "accountResponse",
+              "properties": {
+                "account": {
+                  "$ref": "#/definitions/Account"
+                }
+              }
             }
           }
         }
@@ -81,6 +91,11 @@
     },
     "/price": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Prices"
         ],
@@ -94,7 +109,7 @@
               "title": "price list response",
               "type": "object",
               "properties": {
-                "price": {
+                "prices": {
                   "type": "object",
                   "properties": {
                     "zone": {
@@ -114,6 +129,11 @@
     },
     "/zone": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Zone"
         ],
@@ -150,6 +170,11 @@
     },
     "/timezone": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Timezone"
         ],
@@ -185,6 +210,11 @@
     },
     "/plan": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Plan"
         ],
@@ -220,6 +250,11 @@
     },
     "/server_size": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Server"
         ],
@@ -255,6 +290,11 @@
     },
     "/server": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Server"
         ],
@@ -288,6 +328,11 @@
         }
       },
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Create server",
         "description": "Creates a new server instance.",
         "operationId": "createServer",
@@ -305,7 +350,13 @@
             "name": "Server",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/Server"
+              "type": "object",
+              "title": "createServerRequest",
+              "properties": {
+                "server": {
+                  "$ref": "#/definitions/Server"
+                }
+              }
             }
           }
         ],
@@ -357,6 +408,11 @@
     },
     "/server/{serverId}": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Get server details",
         "description": "Returns detailed information about a specific server.",
         "operationId": "serverDetails",
@@ -389,6 +445,11 @@
         }
       },
       "put": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Modify server",
         "operationId": "modifyServer",
         "tags": [
@@ -458,6 +519,11 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Delete server",
         "operationId": "deleteServer",
         "tags": [
@@ -506,6 +572,11 @@
     },
     "/server/{serverId}/start": {
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "serverId",
@@ -573,6 +644,11 @@
     },
     "/server/{serverId}/stop": {
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Server"
         ],
@@ -599,22 +675,28 @@
             "schema": {
               "type": "object",
               "properties": {
-                "stop_type": {
-                  "description": "Type of stop operation performed on the server.",
-                  "type": "string",
-                  "enum": [
-                    "soft",
-                    "hard"
-                  ],
-                  "default": "soft",
-                  "example": "soft"
-                },
-                "timeout": {
-                  "description": "The stop timeout in seconds.",
-                  "type": "number",
-                  "minimum": 1,
-                  "maximum": 600,
-                  "example": 60
+                "stop_server": {
+                  "type": "object",
+                  "title": "stopServerRequest",
+                  "properties": {
+                    "stop_type": {
+                      "description": "Type of stop operation performed on the server.",
+                      "type": "string",
+                      "enum": [
+                        "soft",
+                        "hard"
+                      ],
+                      "default": "soft",
+                      "example": "soft"
+                    },
+                    "timeout": {
+                      "description": "The stop timeout in seconds.",
+                      "type": "number",
+                      "minimum": 1,
+                      "maximum": 600,
+                      "example": 60
+                    }
+                  }
                 }
               }
             }
@@ -669,6 +751,11 @@
       }
     },
     "/server/{serverId}/restart": {
+      "security": [
+        {
+          "baseAuth": []
+        }
+      ],
       "post": {
         "parameters": [
           {
@@ -773,6 +860,11 @@
     },
     "/storage": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -805,6 +897,11 @@
         }
       },
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -818,31 +915,10 @@
             "required": true,
             "schema": {
               "type": "object",
+              "title": "createStorageRequest",
               "properties": {
-                "size": {
-                  "type": "number",
-                  "minimum": 10,
-                  "maximum": 1024,
-                  "description": "The size of the storage in gigabytes.",
-                  "example": 10
-                },
-                "tier": {
-                  "$ref": "#/definitions/StorageTier",
-                  "example": "maxiops"
-                },
-                "title": {
-                  "type": "string",
-                  "maxItems": 64,
-                  "description": "A short description.",
-                  "example": "My data collection"
-                },
-                "zone": {
-                  "type": "string",
-                  "default": "The zone in which the storage will be created, e.g. fi-hel1. See Zones.",
-                  "example": "fi-hel1"
-                },
-                "backup_rule": {
-                  "$ref": "#/definitions/BackupRule"
+                "storage": {
+                  "$ref": "#/definitions/Storage"
                 }
               }
             }
@@ -899,6 +975,11 @@
         }
       ],
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -921,6 +1002,11 @@
         }
       },
       "put": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -934,20 +1020,10 @@
             "required": true,
             "schema": {
               "type": "object",
+              "title": "modifyStorageRequest",
               "properties": {
-                "backup_rule": {
-                  "$ref": "#/definitions/BackupRule"
-                },
-                "size": {
-                  "type": "number",
-                  "minimum": 10,
-                  "maximum": 1024,
-                  "example": 10
-                },
-                "title": {
-                  "type": "string",
-                  "maxLength": 64,
-                  "example": "A larger storage"
+                "storage": {
+                  "$ref": "#/definitions/Storage"
                 }
               }
             }
@@ -999,6 +1075,11 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -1044,6 +1125,11 @@
     },
     "/storage/{type}/": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -1106,6 +1192,11 @@
         }
       ],
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Server",
           "Storage"
@@ -1120,7 +1211,12 @@
             "required": true,
             "schema": {
               "type": "object",
-              "$ref": "#/definitions/Storage device"
+              "title": "Attach storage device request",
+              "properties": {
+                "storage_device": {
+                  "$ref": "#/definitions/Storage device"
+                }
+              }
             }
           }
         ],
@@ -1182,6 +1278,11 @@
         }
       ],
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Server",
           "Storage"
@@ -1196,11 +1297,10 @@
             "in": "body",
             "schema": {
               "type": "object",
+              "title": "storageDeviceDetachRequest",
               "properties": {
-                "address": {
-                  "type": "string",
-                  "description": "Detach the storage attached to this address.",
-                  "example": "scsi:0:0"
+                "storage_device": {
+                  "$ref": "#/definitions/Storage device"
                 }
               }
             }
@@ -1264,6 +1364,11 @@
         }
       ],
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Server",
           "Storage"
@@ -1277,6 +1382,7 @@
             "in": "body",
             "schema": {
               "type": "object",
+              "title": "storageDeviceLoadRequest",
               "properties": {
                 "storage": {
                   "type": "string",
@@ -1334,7 +1440,7 @@
         }
       }
     },
-    "/server/{serverId}/storage/cdrom/eject": {
+    "/server/{serverId}/cdrom/eject": {
       "parameters": [
         {
           "name": "serverId",
@@ -1346,6 +1452,11 @@
         }
       ],
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Eject CD-ROM",
         "description": "Ejects the storage from the CD-ROM device of a server.",
         "operationId": "ejectCdrom",
@@ -1355,16 +1466,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Normal response",
-            "schema": {
-              "title": "eject cdrom response",
-              "type": "object",
-              "properties": {
-                "server": {
-                  "$ref": "#/definitions/Server"
-                }
-              }
-            }
+            "description": "Eject server response"
           },
           "400": {
             "description": "Bad request",
@@ -1411,6 +1513,11 @@
         }
       ],
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Clone storage",
         "description": "Creates an exact copy of an existing storage resource.",
         "operationId": "cloneStorage",
@@ -1423,21 +1530,10 @@
             "in": "body",
             "schema": {
               "type": "object",
+              "title": "clone storage request",
               "properties": {
-                "zone": {
-                  "type": "string",
-                  "description": "The zone in which the storage will be created, e.g. fi-hel1. See Zones.",
-                  "example": "fi-hel1"
-                },
-                "tier": {
-                  "$ref": "#/definitions/StorageTier",
-                  "example": "maxiops"
-                },
-                "title": {
-                  "type": "string",
-                  "maxLength": 64,
-                  "description": "A short description.",
-                  "example": "Clone of operating system disk"
+                "storage": {
+                  "$ref": "#/definitions/Storage"
                 }
               }
             }
@@ -1501,6 +1597,11 @@
         }
       ],
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -1556,6 +1657,11 @@
         }
       ],
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -1568,6 +1674,7 @@
             "in": "body",
             "schema": {
               "type": "object",
+              "title": "templitize storage request",
               "properties": {
                 "title": {
                   "type": "string",
@@ -1637,6 +1744,11 @@
         }
       ],
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -1649,11 +1761,10 @@
             "in": "body",
             "schema": {
               "type": "object",
+              "title": "create backup storage request",
               "properties": {
-                "title": {
-                  "type": "string",
-                  "example": "Manually created backup",
-                  "description": "A short description."
+                "storage": {
+                  "$ref": "#/definitions/Storage"
                 }
               }
             }
@@ -1717,6 +1828,11 @@
         }
       ],
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Restore backup",
         "description": "Restores the origin storage with data from the specified backup storage.",
         "operationId": "restoreStorage",
@@ -1775,6 +1891,11 @@
         }
       ],
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -1806,6 +1927,11 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Storage"
         ],
@@ -1839,6 +1965,11 @@
     },
     "/ip_address": {
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "IP Address"
         ],
@@ -1854,6 +1985,7 @@
               "properties": {
                 "ip_addresses": {
                   "type": "object",
+                  "title": "ipAddresses",
                   "properties": {
                     "ip_address": {
                       "type": "array",
@@ -1869,6 +2001,11 @@
         }
       },
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "IP Address"
         ],
@@ -1881,30 +2018,10 @@
             "in": "body",
             "schema": {
               "type": "object",
+              "title": "addIpRequest",
               "properties": {
-                "access": {
-                  "type": "string",
-                  "enum": [
-                    "public",
-                    "private"
-                  ],
-                  "description": "Is address for private or public network.",
-                  "example": "public"
-                },
-                "family": {
-                  "type": "string",
-                  "example": "IPv4",
-                  "enum": [
-                    "IPv4",
-                    "IPv6"
-                  ],
-                  "description": "The address family of new IP address."
-                },
-                "server": {
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "009d64ef-31d1-4684-a26b-c86c955cbf46",
-                  "description": "Server id"
+                "ip_address": {
+                  "$ref": "#/definitions/Ip address"
                 }
               }
             }
@@ -1968,6 +2085,11 @@
         }
       ],
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Get IP address details",
         "description": "Returns detailed information about a specific IP address.",
         "operationId": "getDetails",
@@ -1990,6 +2112,11 @@
         }
       },
       "put": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "IP Address"
         ],
@@ -2002,12 +2129,11 @@
             "in": "body",
             "schema": {
               "type": "object",
+              "title": "modifyIpRequest",
               "properties": {
-                "ptr_record": {
-                  "type": "string",
-                  "description": "A fully qualified domain name.",
-                  "default": "",
-                  "example": "hostname.example.com"
+                "ip_address": {
+                  "type": "object",
+                  "$ref": "#/definitions/Ip address"
                 }
               }
             }
@@ -2059,6 +2185,11 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "IP Address"
         ],
@@ -2114,6 +2245,11 @@
         }
       ],
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Server",
           "Firewall"
@@ -2150,6 +2286,11 @@
         }
       },
       "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Server",
           "Firewall"
@@ -2238,13 +2379,17 @@
         {
           "name": "firewallRuleNumber",
           "description": "Denotes the index of the firewall rule in the server's firewall rule list",
-          "type": "string",
+          "type": "number",
           "in": "path",
-          "format": "uuid",
           "required": true
         }
       ],
       "get": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Server",
           "Firewall"
@@ -2298,6 +2443,11 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "tags": [
           "Server",
           "Firewall"
@@ -2645,6 +2795,12 @@
           }
         }
       }
+    }
+  },
+  "securityDefinitions": {
+    "baseAuth": {
+      "type": "basic",
+      "description": "Basic HTTP auth"
     }
   },
   "definitions": {
@@ -3006,6 +3162,7 @@
           "example": "daily"
         },
         "time": {
+          "type": "string",
           "example": "0430"
         },
         "retention": {
@@ -3020,7 +3177,8 @@
         "disk",
         "cdrom",
         "template",
-        "backup"
+        "backup",
+        "normal"
       ],
       "example": "normal",
       "description": "There are four different storage types:\n* `disk` (*Normal storages*) - Normal storage resources are used to store operating system and application data. This is the only user writeable storage type.\n* `cdrom` (*CD-ROMs*) - CD-ROM resources are used as a read-only media, typically for server installations or crash recovery.\n* `template` (*Templates*) - Templates are special storage resources which are used to create new servers with a preconfigured operating system.\n* `backup` (*Backups*) - Backups are storages containing a point-in-time backup of a normal storage. Data on a normal storage can be restored from one of its backups. Backups can also be cloned to create a new normal storage resource. Backups can be created manually or automatically using backup rules."
@@ -3117,12 +3275,37 @@
         "zone": {
           "type": "string",
           "example": "fi-hel1"
+        },
+        "origin": {
+          "type": "string",
+          "format": "uuid",
+          "example": "012580a1-32a1-466e-a323-689ca16f2d43"
+        },
+        "created": {
+          "type": "string",
+          "format": "datetime"
         }
       }
     },
     "Storage device": {
       "type": "object",
       "properties": {
+        "title": {
+          "type": "string",
+          "example": "Debian from a template"
+        },
+        "size": {
+          "type": "number",
+          "example": 50
+        },
+        "tier": {
+          "type": "string",
+          "example": "maxiops"
+        },
+        "action": {
+          "type": "string",
+          "example": "clone"
+        },
         "address": {
           "type": "string",
           "example": "virtio:0"
@@ -3256,7 +3439,7 @@
           "example": "tcp"
         },
         "icmp_type": {
-          "type": "number",
+          "type": "string",
           "minimum": 0,
           "maximum": 255,
           "description": "The ICMP type.",
@@ -3433,10 +3616,10 @@
         "error": {
           "type": "object",
           "properties": {
-            "code": {
+            "error_code": {
               "$ref": "#/definitions/ErrorCode"
             },
-            "status": {
+            "error_status": {
               "$ref": "#/definitions/ErrorStatus"
             }
           }
