@@ -2497,6 +2497,11 @@
         "tags": [
           "Tag"
         ],
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "List existing tags",
         "description": "Returns all existing tags with their properties and servers tagged",
         "operationId": "listTags",
@@ -2527,6 +2532,11 @@
         "tags": [
           "Tag"
         ],
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Create a new tag",
         "description": "Creates a new tag. Existing servers can be tagged in same request",
         "operationId": "createTag",
@@ -2537,6 +2547,7 @@
             "required": true,
             "schema": {
               "type": "object",
+              "title": "tag create request",
               "properties": {
                 "tag": {
                   "$ref": "#/definitions/Tag"
@@ -2587,6 +2598,11 @@
         "tags": [
           "Tag"
         ],
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Modify existing tag",
         "description": "Changes attributes of an existing tag",
         "operationId": "modifyTag",
@@ -2595,6 +2611,7 @@
             "name": "tag",
             "schema": {
               "type": "object",
+              "title": "modify tag request",
               "properties": {
                 "tag": {
                   "$ref": "#/definitions/Tag"
@@ -2648,6 +2665,11 @@
         "tags": [
           "Tag"
         ],
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
         "summary": "Delete tag",
         "description": "Deleting existing tag untags all servers from specified tag and deletes tag definition",
         "operationId": "deleteTag",
@@ -2698,6 +2720,11 @@
         "tags": [
           "Server",
           "Tag"
+        ],
+        "security": [
+          {
+            "baseAuth": []
+          }
         ],
         "summary": "Assign tag to a server",
         "description": "Servers can be tagged with one or more tags. The tags used must exist",
@@ -2758,6 +2785,11 @@
         "tags": [
           "Server",
           "Tag"
+        ],
+        "security": [
+          {
+            "baseAuth": []
+          }
         ],
         "summary": "Remove tag from server",
         "description": "Untags tags from given server. The tag(s) must exist",
