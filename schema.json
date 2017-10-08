@@ -197,7 +197,9 @@
                     "timezone": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/definitions/Timezone"
+                        "type": "string",
+                        "description": "A cloud server's hardware clock is set to a specific timezone. Some operating systems, such as Microsoft Windows, rely on the hardware clock being in local time. Others, such as Linux, use a default setting of a hardware clock in Coordinated Universal Time (UTC). The server's timezone setting can be adjusted to a local time if required by the operating system.",
+                        "example": "Africa/Abidjan"
                       }
                     }
                   }
@@ -3490,6 +3492,7 @@
           "example": "192.168.255.255"
         },
         "destination_port_start": {
+          "title": "destination_port_start",
           "type": "number",
           "minimum": 1,
           "maximum": 65535,
