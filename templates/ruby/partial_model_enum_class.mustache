@@ -6,8 +6,8 @@
     # @param [String] The enum value in the form of the string
     # @return [String] The enum value
     def build_from_hash(value)
-      consantValues = {{classname}}.constants.select{|c| c.to_s == value}
-      raise "Invalid ENUM value #{value} for class #{{{classname}}}" if consantValues.empty?
+      # consantValues = {{classname}}.constants.select{|c| c.to_s == value.upcase}
+      raise "Invalid ENUM value #{value} for class #{{{classname}}}" if {{classname}}.constants.count{|c| {{classname}}.const_get(c) == value} == 0
       value
     end
   end

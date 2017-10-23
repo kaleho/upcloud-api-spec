@@ -303,6 +303,9 @@
         "summary": "List of servers",
         "description": "Returns a list of all servers associated with the current account.",
         "operationId": "listServers",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
@@ -420,6 +423,9 @@
         "operationId": "serverDetails",
         "tags": [
           "Server"
+        ],
+        "produces": [
+          "application/json"
         ],
         "parameters": [
           {
@@ -671,15 +677,17 @@
             "format": "uuid"
           },
           {
-            "name": "stop_server",
+            "name": "stop_server_request",
             "in": "body",
             "required": true,
             "schema": {
               "type": "object",
+              "title": "stopServer",
               "properties": {
                 "stop_server": {
                   "type": "object",
                   "title": "stopServerRequest",
+                  "description": "stop server request",
                   "properties": {
                     "stop_type": {
                       "description": "Type of stop operation performed on the server.",
@@ -1530,6 +1538,7 @@
           {
             "name": "storage",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "title": "clone storage request",
@@ -1761,6 +1770,7 @@
           {
             "name": "storage",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "title": "create backup storage request",
@@ -3126,7 +3136,7 @@
         },
         "timezone": {
           "description": "A timezone identifier, e.g. Europe/Helsinki. See Timezones.",
-          "$ref": "#/definitions/Timezone"
+          "type": "string"
         },
         "title": {
           "description": "A short description.",

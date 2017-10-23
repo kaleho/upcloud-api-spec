@@ -1,4 +1,5 @@
 {
   "packageName": "Upcloud",
-  "packageVersion": "1.2.0"
+  "packageVersion": "1.2.0",
+  "modelPropertyNaming": "camelCase"
 }
