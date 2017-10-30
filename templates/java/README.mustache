@@ -1,5 +1,13 @@
 # {{artifactId}}
 
+## Table of content
+* [Installation](#installation)
+* [Usage](#usage)
+* [Documentation](#documentation)
+* [Issues](#issues)
+* [Contributing](#contributing-optional)
+* [License](#license)
+
 ## Requirements
 
 Building the API client library requires [Maven](https://maven.apache.org/) to be installed.
@@ -52,7 +60,7 @@ Then manually install the following JARs:
 * target/{{{artifactId}}}-{{{artifactVersion}}}.jar
 * target/lib/*.jar
 
-## Getting Started
+## Usage
 
 Please follow the [installation](#installation) instruction and execute the following Java code:
 
@@ -102,7 +110,7 @@ public class {{{classname}}}Example {
 {{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
 ```
 
-## Documentation for API Endpoints
+## Documentation
 
 All URIs are relative to *{{basePath}}*
 
@@ -146,3 +154,11 @@ It's recommended to create an instance of `ApiClient` per thread in a multithrea
 
 {{#apiInfo}}{{#apis}}{{^hasMore}}{{infoEmail}}
 {{/hasMore}}{{/apis}}{{/apiInfo}}
+
+## Issues
+
+[Open a new issue here](https://github.com/UpCloudLtd/upcloud-java-api/issues/new).
+
+## License
+
+This project is distributed under the [MIT License](https://opensource.org/licenses/MIT), see LICENSE.txt for more information.
