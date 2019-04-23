@@ -545,11 +545,75 @@
             "required": true,
             "type": "string",
             "format": "uuid"
+          },
+          {  
+             "name": "storages",
+             "in": "query",
+             "description": "Detaches and deletes storages on the server.",
+             "required": false,
+             "type": "number"
           }
         ],
         "responses": {
           "204": {
             "description": "Deleted"
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/server/{serverId}/cancel": {
+      "post": {
+        "security": [
+          {
+            "baseAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serverId",
+            "in": "path",
+            "description": "Id of server on which to cancel the current operation.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "tags": [
+          "Server"
+        ],
+        "summary": "Cancel server operation",
+        "description": "Cancels a running server operation.",
+        "operationId": "cancelServer",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Normal response"
           },
           "400": {
             "description": "Bad request",
@@ -807,7 +871,8 @@
                     "destroy",
                     "ignore"
                   ],
-                  "example": "destroy"
+                  "example": "destroy",
+                  "default": "ignore"
                 }
               }
             }
@@ -1362,7 +1427,7 @@
         }
       }
     },
-    "/server/{serverId}/storage/cdrom/load": {
+    "/server/{serverId}/cdrom/load": {
       "parameters": [
         {
           "name": "serverId",
@@ -2957,7 +3022,7 @@
       "type": "object",
       "description": "A zone identifies the physical site where the cloud services are located. Different zones may be used to provide geographical and logical separation of servers.",
       "properties": {
-        "name": {
+        "id": {
           "type": "string",
           "example": "de-fra1"
         },
@@ -3060,6 +3125,10 @@
           "type": "number",
           "example": 7653311107
         },
+        "avoid_host": {
+          "type": "number",
+          "example": 7653311107
+        },
         "hostname": {
           "description": "A valid hostname, e.g. host.example.com. The maximum length is 128 characters.",
           "type": "string",
@@ -3080,16 +3149,65 @@
           "type": "number",
           "example": 0
         },
+        "login_user": {
+          "type": "object",
+          "properties": {
+            "create_password": {
+              "type": "string",
+              "enum": [
+                "yes",
+                "no"
+              ],
+              "default": "yes",
+              "example": "upclouduser"
+            },
+            "username": {
+              "type": "string",
+              "example": "upclouduser"
+            },
+            "ssh_keys": {
+              "type": "object",
+              "properties": {
+                "ssh_key": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "ssh-rsa AAAAB3NzaC1yc2EAA[...]ptshi44x user@some.host",
+                    "ssh-dss AAAAB3NzaC1kc3MAA[...]VHRzAA== someuser@some.other.host"
+                  ]
+                }
+              }
+            }
+          }
+        },
         "memory_amount": {
           "description": "The amount of main memory in megabytes. See List server configurations.",
           "type": "number",
           "example": 1024
         },
         "nic_model": {
-          "description": "The model of the server's network interfaces.",
           "type": "string",
-          "example": "virtio",
-          "default": "e1000"
+          "enum": [
+            "e1000",
+            "virtio",
+            "rtl8139"
+          ],
+          "description": "The model of the server's network interfaces.",
+          "example": "e1000",
+          "default": "virtio"
+        },
+        "password_delivery": {
+          "type": "string",
+          "enum": [
+            "none",
+            "email",
+            "sms"
+          ],
+          "description": "The delivery method for the server's root password.",
+          "example": "none",
+          "default": "email"
         },
         "plan": {
           "description": "The pricing plan used. If a plan is selected, the core_number and  memory_amount must match the plan if they are present.",
@@ -3136,12 +3254,17 @@
         },
         "timezone": {
           "description": "A timezone identifier, e.g. Europe/Helsinki. See Timezones.",
-          "type": "string"
+          "type": "string",
+          "example": "UTC"
         },
         "title": {
           "description": "A short description.",
           "type": "string",
           "example": "server1.example.com"
+        },
+        "user_data": {
+          "description": "Defines URL for a server setup script, or the script body itself.",
+          "type": "string"
         },
         "uuid": {
           "type": "string",
@@ -3325,6 +3448,10 @@
           "format": "uuid",
           "example": "012580a1-32a1-466e-a323-689ca16f2d43"
         },
+        "progress": {
+          "type": "number",
+          "example": 0
+        },
         "created": {
           "type": "string",
           "format": "datetime"
@@ -3338,16 +3465,36 @@
           "type": "string",
           "example": "Debian from a template"
         },
+        "boot_disk": {
+          "type": "string",
+          "enum":[
+            "0",
+            "1"
+          ],
+          "example": "1",
+          "default": "0"
+        },
         "size": {
           "type": "number",
+          "description": "The size of the storage device in gigabytes.",
           "example": 50
         },
         "tier": {
           "type": "string",
-          "example": "maxiops"
+          "enum":[
+            "hdd",
+            "maxiops"
+          ],
+          "example": "maxiops",
+          "default": "hdd"
         },
         "action": {
           "type": "string",
+          "enum":[
+            "create",
+            "clone",
+            "attach"
+          ],
           "example": "clone"
         },
         "address": {
@@ -3376,7 +3523,12 @@
         },
         "type": {
           "type": "string",
-          "example": "disk"
+          "enum":[
+            "disk",
+            "cdrom"
+          ],
+          "example": "cdrom",
+          "default": "disk"
         }
       }
     },
@@ -3399,11 +3551,12 @@
             "private"
           ],
           "example": "private",
+          "default": "public",
           "description": "Is address for private or public network."
         },
         "address": {
           "type": "string",
-          "example": "10.0.0.00"
+          "example": "10.0.0.0"
         },
         "family": {
           "type": "string",
@@ -3411,7 +3564,8 @@
             "IPv4",
             "IPv6"
           ],
-          "example": "IPv4",
+          "example": "IPv6",
+          "default": "IPv4",
           "description": "The address family of new IP address."
         },
         "ptr_record": {
