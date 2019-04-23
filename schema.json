@@ -195,9 +195,7 @@
                     "timezone": {
                       "type": "array",
                       "items": {
-                        "type": "string",
-                        "description": "A cloud server's hardware clock is set to a specific timezone. Some operating systems, such as Microsoft Windows, rely on the hardware clock being in local time. Others, such as Linux, use a default setting of a hardware clock in Coordinated Universal Time (UTC). The server's timezone setting can be adjusted to a local time if required by the operating system.",
-                        "example": "Africa/Abidjan"
+                        "$ref": "#/definitions/TimeZone"
                       }
                     }
                   }
