@@ -115,7 +115,6 @@
                     "zone": {
                       "type": "array",
                       "items": {
-                        "type": "object",
                         "$ref": "#/definitions/PriceZone"
                       }
                     }
@@ -156,7 +155,6 @@
                     "zone": {
                       "type": "array",
                       "items": {
-                        "type": "object",
                         "$ref": "#/definitions/Zone"
                       }
                     }
@@ -482,7 +480,6 @@
             "name": "Server",
             "in": "body",
             "schema": {
-              "title": "Success server update response",
               "$ref": "#/definitions/Server"
             }
           }
@@ -1289,7 +1286,7 @@
               "title": "Attach storage device request",
               "properties": {
                 "storage_device": {
-                  "$ref": "#/definitions/Storage device"
+                  "$ref": "#/definitions/StorageDevice"
                 }
               }
             }
@@ -1375,7 +1372,7 @@
               "title": "storageDeviceDetachRequest",
               "properties": {
                 "storage_device": {
-                  "$ref": "#/definitions/Storage device"
+                  "$ref": "#/definitions/StorageDevice"
                 }
               }
             }
@@ -2067,7 +2064,7 @@
                     "ip_address": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/definitions/Ip address"
+                        "$ref": "#/definitions/IpAddress"
                       }
                     }
                   }
@@ -2098,7 +2095,7 @@
               "title": "addIpRequest",
               "properties": {
                 "ip_address": {
-                  "$ref": "#/definitions/Ip address"
+                  "$ref": "#/definitions/IpAddress"
                 }
               }
             }
@@ -2112,7 +2109,7 @@
               "type": "object",
               "properties": {
                 "ip_address": {
-                  "$ref": "#/definitions/Ip address"
+                  "$ref": "#/definitions/IpAddress"
                 }
               }
             }
@@ -2181,7 +2178,7 @@
               "type": "object",
               "properties": {
                 "ip_address": {
-                  "$ref": "#/definitions/Ip address"
+                  "$ref": "#/definitions/IpAddress"
                 }
               }
             }
@@ -2209,8 +2206,7 @@
               "title": "modifyIpRequest",
               "properties": {
                 "ip_address": {
-                  "type": "object",
-                  "$ref": "#/definitions/Ip address"
+                  "$ref": "#/definitions/IpAddress"
                 }
               }
             }
@@ -2224,7 +2220,7 @@
               "type": "object",
               "properties": {
                 "ip_address": {
-                  "$ref": "#/definitions/Ip address"
+                  "$ref": "#/definitions/IpAddress"
                 }
               }
             }
@@ -2949,71 +2945,54 @@
           "type": "string"
         },
         "firewall": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "io_request_backup": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "io_request_hdd": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "io_request_maxiops": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "ipv4_address": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "ipv6_address": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "public_ipv4_bandwidth_in": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "public_ipv4_bandwidth_out": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "public_ipv6_bandwidth_in": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "public_ipv6_bandwidth_out": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "server_core": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "server_memory": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "storage_backup": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "storage_hdd": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "storage_maxiops": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "server_plan_1xCPU-1GB": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         },
         "server_plan_2xCPU-2GB": {
-          "type": "object",
           "$ref": "#/definitions/Price"
         }
       }
@@ -3140,7 +3119,7 @@
             "ip_address": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Ip address"
+                "$ref": "#/definitions/IpAddress"
               }
             }
           }
@@ -3232,7 +3211,7 @@
             "storage_device": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Storage device"
+                "$ref": "#/definitions/StorageDevice"
               }
             }
           }
@@ -3458,7 +3437,7 @@
         }
       }
     },
-    "Storage device": {
+    "StorageDevice": {
       "type": "object",
       "properties": {
         "title": {
@@ -3540,7 +3519,7 @@
       ],
       "example": "IPv4"
     },
-    "Ip address": {
+    "IpAddress": {
       "type": "object",
       "description": "The UpCloud network has public and private IP addresses.",
       "properties": {
@@ -3623,8 +3602,6 @@
         },
         "family": {
           "$ref": "#/definitions/AddressFamily",
-          "description": "if protocol is set The address family of new firewall rule",
-          "example": "IPv4"
         },
         "protocol": {
           "type": "string",
