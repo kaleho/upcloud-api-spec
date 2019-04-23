@@ -195,7 +195,7 @@
                     "timezone": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/definitions/TimeZone"
+                        "$ref": "#/definitions/Timezone"
                       }
                     }
                   }
