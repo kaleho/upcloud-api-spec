@@ -820,13 +820,13 @@
       }
     },
     "/server/{serverId}/restart": {
-      "security": [
-        {
-          "baseAuth": []
-        }
-      ],
       "post": {
-        "parameters": [
+          "security": [
+            {
+              "baseAuth": []
+            }
+          ],
+          "parameters": [
           {
             "name": "serverId",
             "in": "path",
