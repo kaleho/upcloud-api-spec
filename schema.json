@@ -2332,6 +2332,7 @@
           "application/json"
         ],
         "summary": "List firewall rules",
+        "operationId": "getServerFirewallRule",        
         "description": "Returns a list of firewall rules for a specific server.",
         "responses": {
           "200": {
